@@ -41,9 +41,15 @@
 
 .baseLink {
     color: inherit;
+
+    &:hover {
+        color: #ff4053;
+        font-weight: 600;
+    }
 }
 
-.activeLink {
+.baseLink.activeLink {
+    cursor: default;
     color: #0869ff;
     font-weight: 700;
 }

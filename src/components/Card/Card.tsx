@@ -1,11 +1,26 @@
+import { useNavigate } from 'react-router-dom';
+
 import { Advertisment } from './types';
 
-import styles from './card.module.scss';
 import { formatCurrency } from './helpers/formatCurrency';
 
-export function Card({ name, price, views, likes, imageUrl }: Advertisment) {
+import styles from './card.module.scss';
+
+export function Card({
+    name,
+    price,
+    views,
+    likes,
+    imageUrl,
+    id,
+}: Advertisment) {
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        navigate(`/advertisement/${id}`);
+    };
     return (
-        <div className={styles.cardContainer}>
+        <div className={styles.cardContainer} onClick={handleClick}>
             <div className={styles.imgContainer}>
                 <img
                     className={styles.img}

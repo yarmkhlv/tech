@@ -6,6 +6,7 @@ import { Header } from './components/Header';
 import { Navigation } from './components/Navigation';
 
 import styles from './app.module.scss';
+import { AdDetailsPage } from './pages/AdDetailsPage';
 
 export function App() {
     return (
@@ -17,6 +18,10 @@ export function App() {
                     <main className={styles.mainContent}>
                         <Routes>
                             <Route path="/" element={<AdsListPage />} />
+                            <Route
+                                path="/advertisement/:id"
+                                element={<AdDetailsPage />}
+                            />
                             <Route path="/orders" element={<OrdersPage />} />
                         </Routes>
                     </main>

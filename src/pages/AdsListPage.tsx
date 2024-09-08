@@ -53,7 +53,6 @@ export function AdsListPage() {
     const fetchAdvertisements = useCallback(async () => {
         setLoading(true);
         const start = currentPage * adCountPerPage.value;
-        console.log('lala');
         const response = await getFiltratedAdvertisements(
             start,
             adCountPerPage.value,
@@ -70,6 +69,8 @@ export function AdsListPage() {
         setCountPagesForPagination(newCount);
         if (newCount < currentPage) {
             setCurrentPage(newCount - 1);
+        } else {
+            fetchAdvertisements();
         }
     }, [countAllItems, adCountPerPage.value]);
 
