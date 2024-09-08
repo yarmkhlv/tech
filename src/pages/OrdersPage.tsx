@@ -1,4 +1,4 @@
-export function AdDetails() {
+export function OrdersPage() {
     return (
         <div>
             <h1>All Ads</h1>

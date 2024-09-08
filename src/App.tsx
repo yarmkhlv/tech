@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { AdsList } from './pages/AdsList';
-import { Orders } from './pages/Orders';
+import { AdsListPage } from './pages/AdsListPage';
+import { OrdersPage } from './pages/OrdersPage';
 
 import { Header } from './components/Header';
 import { Navigation } from './components/Navigation';
@@ -14,10 +14,10 @@ export function App() {
                 <Header />
                 <div className={styles.contentWrapper}>
                     <Navigation />
-                    <main>
+                    <main className={styles.mainContent}>
                         <Routes>
-                            <Route path="/" element={<AdsList />} />
-                            <Route path="/orders" element={<Orders />} />
+                            <Route path="/" element={<AdsListPage />} />
+                            <Route path="/orders" element={<OrdersPage />} />
                         </Routes>
                     </main>
                 </div>

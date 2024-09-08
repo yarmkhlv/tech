@@ -1,7 +1,14 @@
+@import '../../styles/mixinns';
+
 .nav {
     width: 250px;
-    background-color: #f7f4f3;
+    height: 100%;
+
     padding: 20px;
+
+    border-right: 1px solid rgba(233, 230, 228, 0.4);
+
+    background-color: rgba(249, 249, 249, 0.6);
 }
 
 .listItems {
@@ -11,4 +18,25 @@
 }
 
 .item {
+    &:visited {
+        color: #000;
+    }
+
+    @include desktop {
+        font-size: 16px;
+        line-height: 24px;
+    }
+    @include large-desktop {
+        font-size: 20px;
+        line-height: 28px;
+    }
+}
+
+.baseLink {
+    color: inherit;
+}
+
+.activeLink {
+    color: #0869ff;
+    font-weight: 700;
 }
