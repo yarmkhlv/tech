@@ -1,4 +1,4 @@
-export async function getAdvertisementsLength() {
+export async function getAllAdvertisements() {
     const url = `http://localhost:3000/advertisements`;
 
     try {
@@ -9,7 +9,7 @@ export async function getAdvertisementsLength() {
             );
         }
         const data = await response.json();
-        return data.length;
+        return data;
     } catch (error) {
         console.error('Failed to fetch orders:', error);
         return null;
