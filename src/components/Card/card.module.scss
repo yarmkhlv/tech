@@ -1,51 +1,87 @@
+@import '../../styles/mixins';
+
 .cardContainer {
     display: flex;
 
-    width: 300px;
-    height: 250px;
+    height: 150px;
 
     border: 1px solid #ddd;
     border-radius: 8px;
     overflow: hidden;
 
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
 
+    @include tablet {
+        height: 250px;
+    }
+}
 .imgContainer {
+    width: 40%;
+
+    @include tablet {
+        width: 50%;
+    }
+}
+.img {
     width: 100%;
-    height: auto;
-    display: block;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
 }
 
 .infoContainer {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+
+    width: 60%;
+
     padding: 16px;
+
+    @include tablet {
+        width: 50%;
+
+        row-gap: 20px;
+    }
 }
 
 .title {
     font-size: 18px;
     color: #007bff;
-    margin: 0 0 8px;
 }
 
 .price {
-    font-size: 20px;
+    overflow: hidden;
+
+    font-size: 16px;
     color: #333;
     font-weight: bold;
-    margin: 0 0 16px;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    @include tablet {
+        font-size: 20px;
+    }
 }
 
 .stats {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    align-items: center;
+    align-items: start;
 }
 
 .views,
 .likes {
     display: flex;
     align-items: center;
+
     font-size: 14px;
     color: #777;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .views::before {

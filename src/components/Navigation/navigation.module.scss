@@ -1,14 +1,21 @@
-@import '../../styles/mixinns';
+@import '../../styles/mixins';
 
 .nav {
-    width: 250px;
-    height: 100%;
+    width: 130px;
 
-    padding: 20px;
+    padding: 10px;
 
     border-right: 1px solid rgba(233, 230, 228, 0.4);
 
     background-color: rgba(249, 249, 249, 0.6);
+
+    @include tablet {
+        width: 200px;
+        padding: 20px;
+    }
+    @include desktop {
+        width: 250px;
+    }
 }
 
 .listItems {

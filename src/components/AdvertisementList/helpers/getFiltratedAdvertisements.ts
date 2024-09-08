@@ -1,4 +1,4 @@
-export async function getAdvertisements(start = 0, limit = 10) {
+export async function getFiltratedAdvertisements(start = 0, limit = 10) {
     const url = `http://localhost:3000/advertisements?_start=${start}&_limit=${limit}`;
 
     try {
