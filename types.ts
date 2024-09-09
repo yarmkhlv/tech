@@ -1,4 +1,4 @@
-type Advertisment = {
+export type TAdvertisment = {
     /* Уникальный идентификатор. */
     id: string;
     /* Название. */
@@ -27,7 +27,7 @@ const OrderStatus = {
     Refund: 6,
 } as const;
 
-type OrderItem = Advertisment & { count: number };
+type OrderItem = TAdvertisment & { count: number };
 
 type Order = {
     /* Уникальный идентификатор. */

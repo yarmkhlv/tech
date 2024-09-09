@@ -6,7 +6,8 @@ import { CustomSelect } from '../components/Select/CustomSelect';
 import { Loader } from '../components/Loader';
 
 import { Option } from '../components/Select/types';
-import { Advertisment } from '../components/Card/types';
+import { TAdvertisment } from '../../types';
+
 import {
     getAllAdvertisements,
     getFiltratedAdvertisements,
@@ -27,7 +28,7 @@ const OPTIONS_FOR_SELECT = [
     },
 ];
 
-type AdvertismentState = Advertisment[] | null;
+type AdvertismentState = TAdvertisment[] | null;
 
 export function AdsListPage() {
     const [loading, setLoading] = useState(false);

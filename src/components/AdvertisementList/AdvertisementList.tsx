@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 
 import { Card } from '../Card';
 
-import { Advertisment } from '../Card/types';
+import { TAdvertisment } from '../../../types';
 
 import styles from './advertisementList.module.scss';
 
 interface IPropsAdvertisementList {
-    itemsDataAdv: Advertisment[] | null;
+    itemsDataAdv: TAdvertisment[] | null;
 }
 
 export function AdvertisementList({ itemsDataAdv }: IPropsAdvertisementList) {

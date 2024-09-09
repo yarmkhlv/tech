@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { Advertisment } from './types';
 
-import { formatCurrency } from './helpers/formatCurrency';
+import { formatCurrency } from '../../helpers/formatCurrency';
 
 import styles from './card.module.scss';
 

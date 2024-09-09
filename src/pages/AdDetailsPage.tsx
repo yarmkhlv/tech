@@ -1,35 +1,24 @@
 import { useEffect, useState } from 'react';
-import clsx from 'clsx';
 import { useParams } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
 
+import { FormEdit } from '../components/AdDetailsModes/FormEdit/FormEdit';
 import { Loader } from '../components/Loader';
 
-import { formatCurrency } from '../components/Card/helpers/formatCurrency';
+import { formatCurrency } from '../helpers/formatCurrency';
 
-import { Advertisment } from '../components/Card/types';
-
-import styles from './adDetailsPage.module.scss';
-import { CrossIcon } from './Cross';
+import { TAdvertisment } from '../../types';
 
 export function AdDetailsPage() {
     const { id } = useParams<{ id: string }>();
-    const [advertisement, setAdvertisement] = useState<Advertisment | null>(
+    const [advertisement, setAdvertisement] = useState<TAdvertisment | null>(
         null,
     );
     const [loading, setLoading] = useState(true);
     const [errorAfterFetching, setErrorAfterFetching] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
 
-    const {
-        register,
-        handleSubmit,
-        reset,
-        resetField,
-        formState: { errors },
-    } = useForm<Partial<Advertisment>>();
-
     useEffect(() => {
+        if (isEditing) return;
         const fetchAdvertisement = async () => {
             if (id) {
                 try {
@@ -37,18 +26,11 @@ export function AdDetailsPage() {
                         `http://localhost:3000/advertisements/${id}`,
                     );
                     if (response.ok) {
-                        const data = await response.json();
+                        const data: TAdvertisment = await response.json();
                         setAdvertisement(data);
-                        reset(data);
-                    } else {
-                        console.error(
-                            'Failed to fetch advertisement:',
-                            response.statusText,
-                        );
-                        setErrorAfterFetching(true);
                     }
                 } catch (error) {
-                    console.error('Error fetching advertisement:', error);
+                    console.error('Ошибка в получении объявления', error);
                     setErrorAfterFetching(true);
                 } finally {
                     setLoading(false);
@@ -57,36 +39,7 @@ export function AdDetailsPage() {
         };
 
         fetchAdvertisement();
-    }, [id, reset]);
-
-    const onSubmit = async (data: Partial<Advertisment>) => {
-        if (id) {
-            try {
-                const response = await fetch(
-                    `http://localhost:3000/advertisements/${id}`,
-                    {
-                        method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(data),
-                    },
-                );
-                if (response.ok) {
-                    const updatedData = await response.json();
-                    setAdvertisement(updatedData);
-                    setIsEditing(false);
-                } else {
-                    console.error(
-                        'Failed to update advertisement:',
-                        response.statusText,
-                    );
-                }
-            } catch (error) {
-                console.error('Error updating advertisement:', error);
-            }
-        }
-    };
+    }, [id, isEditing]);
 
     if (errorAfterFetching)
         return (
@@ -97,118 +50,26 @@ export function AdDetailsPage() {
         );
     if (!advertisement || loading) return <Loader />;
 
+    if (isEditing && id)
+        return (
+            <FormEdit
+                advertisement={advertisement}
+                setAdvertisement={setAdvertisement}
+                closeForm={() => setIsEditing(false)}
+            />
+        );
+
     return (
         <div>
-            {isEditing ? (
-                <div className={styles.formContainer}>
-                    <h1 className={styles.title}>Редактирование объявления</h1>
-                    <form
-                        className={styles.form}
-                        onSubmit={handleSubmit(onSubmit)}
-                    >
-                        <div className={styles.inputGroup}>
-                            <label className={styles.label} htmlFor="name">
-                                Название объявления
-                            </label>
-                            <input
-                                className={styles.input}
-                                type="text"
-                                id="name"
-                                {...register('name', { required: true })}
-                            />
-                            <button
-                                type="button"
-                                className={styles.clearBtn}
-                                onClick={() => resetField('name')}
-                            >
-                                <CrossIcon />
-                            </button>
-
-                            {errors.name && <span>Name is required</span>}
-                        </div>
-                        <div className={styles.inputGroup}>
-                            <label
-                                className={styles.label}
-                                htmlFor="description"
-                            >
-                                Описание объявления
-                            </label>
-                            <textarea
-                                className={clsx(styles.input, styles.textArea)}
-                                id="description"
-                                {...register('description')}
-                            />
-                            <button
-                                type="button"
-                                className={styles.clearBtn}
-                                onClick={() => resetField('description')}
-                            >
-                                <CrossIcon />
-                            </button>
-                        </div>
-                        <div className={styles.inputGroup}>
-                            <label className={styles.label} htmlFor="imageUrl">
-                                Картинка
-                            </label>
-                            <input
-                                className={styles.input}
-                                type="text"
-                                id="imageUrl"
-                                {...register('imageUrl', { required: true })}
-                            />
-                            <button
-                                type="button"
-                                className={styles.clearBtn}
-                                onClick={() => resetField('imageUrl')}
-                            >
-                                <CrossIcon />
-                            </button>
-                            {errors.imageUrl && (
-                                <span>Image URL is required</span>
-                            )}
-                        </div>
-                        <div className={styles.inputGroup}>
-                            <label className={styles.label} htmlFor="price">
-                                Цена
-                            </label>
-                            <input
-                                className={styles.input}
-                                type="number"
-                                min={1}
-                                id="price"
-                                {...register('price', { required: true })}
-                            />
-                            <button
-                                type="button"
-                                className={styles.clearBtn}
-                                onClick={() => resetField('price')}
-                            >
-                                <CrossIcon />
-                            </button>
-                            {errors.price && <span>Price is required</span>}
-                        </div>
-
-                        <button className={styles.submitButton} type="submit">
-                            Save
-                        </button>
-                    </form>
-                </div>
-            ) : (
-                <>
-                    <img
-                        src={advertisement.imageUrl}
-                        alt={advertisement.name}
-                    />
-                    <h1>{advertisement.name}</h1>
-                    {advertisement.description && (
-                        <p>Описание: {advertisement.description}</p>
-                    )}
-                    <p>Price: {formatCurrency(advertisement.price)}</p>
-                    <p>Views: {advertisement.views}</p>
-                    <p>Likes: {advertisement.likes}</p>
-                    <button onClick={() => setIsEditing(true)}>Edit</button>
-                </>
+            <img src={advertisement.imageUrl} alt={advertisement.name} />
+            <h1>{advertisement.name}</h1>
+            {advertisement.description && (
+                <p>Описание: {advertisement.description}</p>
             )}
+            <p>Price: {formatCurrency(advertisement.price)}</p>
+            <p>Views: {advertisement.views}</p>
+            <p>Likes: {advertisement.likes}</p>
+            <button onClick={() => setIsEditing(true)}>Edit</button>
         </div>
     );
 }
