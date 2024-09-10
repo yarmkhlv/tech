@@ -55,7 +55,7 @@ export function AdsListPage() {
             if (response !== null) {
                 setCountPagesForPagination(response.pages);
                 if (currentPage > response.pages) {
-                    setCurrentPage(response.last - 1);
+                    setCurrentPage(response.pages - 1);
                 }
                 setAdvertisementItems(response.data);
                 setLoading(false);

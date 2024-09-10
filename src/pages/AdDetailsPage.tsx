@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
+import { AdInfo } from '../components/AdDetailsModes/AdInfo/AdInfo.';
 import { FormEdit } from '../components/AdDetailsModes/FormEdit/FormEdit';
 import { Loader } from '../components/Loader';
-
-import { formatCurrency } from '../helpers/formatCurrency';
 
 import { TAdvertisment } from '../../types';
 
@@ -59,17 +58,5 @@ export function AdDetailsPage() {
             />
         );
 
-    return (
-        <div>
-            <img src={advertisement.imageUrl} alt={advertisement.name} />
-            <h1>{advertisement.name}</h1>
-            {advertisement.description && (
-                <p>Описание: {advertisement.description}</p>
-            )}
-            <p>Price: {formatCurrency(advertisement.price)}</p>
-            <p>Views: {advertisement.views}</p>
-            <p>Likes: {advertisement.likes}</p>
-            <button onClick={() => setIsEditing(true)}>Edit</button>
-        </div>
-    );
+    return <AdInfo advertisement={advertisement} setIsEditing={setIsEditing} />;
 }
