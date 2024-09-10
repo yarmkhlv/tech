@@ -1,19 +1,19 @@
 {
     "advertisements": [
         {
-            "name": "wefwef",
-            "description": "fweew",
-            "imageUrl": "fewfew",
+            "name": "Цветок",
+            "description": "zxccxz",
+            "imageUrl": "https://media.istockphoto.com/id/1372896722/ru/%D1%84%D0%BE%D1%82%D0%BE/%D0%B3%D0%BE%D1%80%D1%88%D0%B5%D1%87%D0%BD%D0%BE%D0%B5-%D0%B1%D0%B0%D0%BD%D0%B0%D0%BD%D0%BE%D0%B2%D0%BE%D0%B5-%D1%80%D0%B0%D1%81%D1%82%D0%B5%D0%BD%D0%B8%D0%B5-%D0%B2%D1%8B%D0%B4%D0%B5%D0%BB%D0%B5%D0%BD%D0%BD%D0%BE%D0%B5-%D0%BD%D0%B0-%D0%B1%D0%B5%D0%BB%D0%BE%D0%BC-%D1%84%D0%BE%D0%BD%D0%B5.jpg?s=1024x1024&w=is&k=20&c=5ORk78aJ49BvmLBEePnJvQNqYY_u1fxzJS_cCK_RCPw=",
             "createdAt": "2022-08-12T20:16:55.351Z",
+            "price": "123",
+            "id": "1",
             "views": 20,
-            "likes": 2,
-            "views": 3,
-            "likes": 1
+            "likes": 2
         },
         {
             "name": "few",
             "description": "fewf",
-            "imageUrl": "ewf",
+            "imageUrl": "https://img.freepik.com/free-photo/flat-lay-burger-and-fries-with-soda_23-2148238448.jpg?w=996&t=st=1725984831~exp=1725985431~hmac=68fe2e74764d8be19de85b662b882ae42c11740376f2a6a315a36634aac03dca",
             "price": "123231",
             "id": "2",
             "createdAt": "2023-08-12T20:16:55.351Z",
@@ -23,7 +23,7 @@
         {
             "name": "TGC",
             "description": "xd",
-            "imageUrl": "3232",
+            "imageUrl": "https://img.freepik.com/free-photo/flat-lay-burger-and-fries-with-soda_23-2148238448.jpg?w=996&t=st=1725984831~exp=1725985431~hmac=68fe2e74764d8be19de85b662b882ae42c11740376f2a6a315a36634aac03dca",
             "price": "32323232",
             "id": "3",
             "createdAt": "2024-08-12T20:16:55.351Z",

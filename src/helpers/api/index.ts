@@ -1,0 +1,1 @@
+export { getAdvertisements } from './getAdvertisements';

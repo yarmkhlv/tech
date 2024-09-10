@@ -15,9 +15,10 @@ export function AdvertisementList({ itemsDataAdv }: IPropsAdvertisementList) {
 
     useEffect(() => {
         if (!(itemsDataAdv && itemsDataAdv.length > 0)) return;
-        const elements = itemsDataAdv.map((data) => (
-            <Card key={data.id} {...data} />
-        ));
+        const elements = itemsDataAdv.map((item: TAdvertisment) => {
+            if (!item.id) return;
+            return <Card key={item.id} {...item} />;
+        });
         setRenderItems(elements);
     }, [itemsDataAdv]);
 

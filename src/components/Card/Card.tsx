@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-import { Advertisment } from './types';
+import { TAdvertisment } from '../../../types';
 
 import { formatCurrency } from '../../helpers/formatCurrency';
 
@@ -13,7 +13,7 @@ export function Card({
     likes,
     imageUrl,
     id,
-}: Advertisment) {
+}: TAdvertisment) {
     const navigate = useNavigate();
 
     const handleClick = () => {
@@ -29,8 +29,8 @@ export function Card({
                 />
             </div>
             <div className={styles.infoContainer}>
-                <h3 className={styles.title}>{name}</h3>
-                <p className={styles.price}>{formatCurrency(price)}</p>
+                <h3 className={styles.title}>{name ?? 'Объявление'}</h3>
+                <p className={styles.price}>{formatCurrency(price) ?? '-'}</p>
                 <div className={styles.stats}>
                     <div className={styles.views}>
                         <span>{views}</span>

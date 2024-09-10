@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Paginate } from '../components/Paginate/Paginate';
 import { AdvertisementList } from '../components/AdvertisementList';
@@ -7,11 +7,7 @@ import { Loader } from '../components/Loader';
 
 import { Option } from '../components/Select/types';
 import { TAdvertisment } from '../../types';
-
-import {
-    getAllAdvertisements,
-    getFiltratedAdvertisements,
-} from '../components/AdvertisementList/helpers';
+import { getAdvertisements } from '../helpers/api';
 
 const OPTIONS_FOR_SELECT = [
     {
@@ -35,8 +31,6 @@ export function AdsListPage() {
     const [advertisementItems, setAdvertisementItems] =
         useState<AdvertismentState>([]);
 
-    const [countAllItems, setCountAllItems] = useState<null | number>(null);
-
     const [countPagesForPagination, setCountPagesForPagination] = useState<
         null | number
     >(null);
@@ -51,44 +45,24 @@ export function AdsListPage() {
         setAdCountPerPage(option);
     };
 
-    const fetchAdvertisements = useCallback(async () => {
+    useEffect(() => {
         setLoading(true);
-        const start = currentPage * adCountPerPage.value;
-        const response = await getFiltratedAdvertisements(
-            start,
-            adCountPerPage.value,
-        );
-        if (response !== null) {
-            setAdvertisementItems(response);
-            setLoading(false);
-        }
-    }, [currentPage, adCountPerPage.value]);
-
-    useEffect(() => {
-        if (!countAllItems || countAllItems < 1) return;
-        const newCount = Math.ceil(countAllItems / adCountPerPage.value);
-        setCountPagesForPagination(newCount);
-        if (newCount < currentPage) {
-            setCurrentPage(newCount - 1);
-        } else {
-            fetchAdvertisements();
-        }
-    }, [countAllItems, adCountPerPage.value]);
-
-    useEffect(() => {
-        const fetchLength = async () => {
-            const response = await getAllAdvertisements();
+        const fetchAdvertisements = async () => {
+            const response = await getAdvertisements(
+                currentPage + 1,
+                adCountPerPage.value,
+            );
             if (response !== null) {
-                setCountAllItems(response.length);
+                setCountPagesForPagination(response.pages);
+                if (currentPage > response.pages) {
+                    setCurrentPage(response.last - 1);
+                }
+                setAdvertisementItems(response.data);
                 setLoading(false);
             }
         };
-        fetchLength();
-    }, []);
-
-    useEffect(() => {
         fetchAdvertisements();
-    }, [currentPage]);
+    }, [currentPage, adCountPerPage.value]);
 
     if (loading || !countPagesForPagination || !advertisementItems)
         return <Loader />;
