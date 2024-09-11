@@ -1,64 +1,50 @@
-import clsx from 'clsx';
 import { useForm } from 'react-hook-form';
+import clsx from 'clsx';
 
-import { ClearBtn } from '../../ClearBtn';
-import { ReturnBtn } from '../../ReturnBtn';
-import { SubmitBtn } from '../../SubmitBtn';
+import { ClearBtn } from '../ClearBtn';
+import { ReturnBtn } from '../ReturnBtn';
+import { SubmitBtn } from '../SubmitBtn';
 
-import { TAdvertisment } from '../../../../types';
+import { TAdvertisment } from '../../../types';
 
-import styles from './formEdit.module.scss';
-import { useEffect } from 'react';
+import styles from './formCreateAdvertisment.module.scss';
 
 type FormField = 'name' | 'description' | 'price' | 'imageUrl';
 
-interface IPropsFormEdit {
-    advertisement: TAdvertisment;
-    setAdvertisement: (
-        value: React.SetStateAction<TAdvertisment | null>,
-    ) => void;
+interface IPropsFormCreate {
     closeForm: () => void;
 }
 
-export function FormEdit({
-    advertisement,
-    setAdvertisement,
-    closeForm,
-}: IPropsFormEdit) {
+export function FormCreateAdvertisment({ closeForm }: IPropsFormCreate) {
     const {
         register,
         handleSubmit,
         setValue,
-        reset,
         formState: { errors },
     } = useForm<Partial<TAdvertisment>>();
-    const { id, name, description, imageUrl, price } = advertisement;
+
     const onSubmit = async (data: Partial<TAdvertisment>) => {
-        if (id) {
-            try {
-                const response = await fetch(
-                    `http://localhost:3000/advertisements/${id}`,
-                    {
-                        method: 'PATCH',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(data),
+        try {
+            const response = await fetch(
+                'http://localhost:3000/advertisements',
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
                     },
+                    body: JSON.stringify(data),
+                },
+            );
+            if (response.ok) {
+                closeForm();
+            } else {
+                console.error(
+                    'Failed to create advertisement:',
+                    response.statusText,
                 );
-                if (response.ok) {
-                    const updatedData: TAdvertisment = await response.json();
-                    setAdvertisement(updatedData);
-                    closeForm();
-                } else {
-                    console.error(
-                        'Failed to update advertisement:',
-                        response.statusText,
-                    );
-                }
-            } catch (error) {
-                console.error('Error updating advertisement:', error);
             }
+        } catch (error) {
+            console.error('Error creating advertisement:', error);
         }
     };
 
@@ -66,13 +52,11 @@ export function FormEdit({
         setValue(name, '');
     };
 
-    useEffect(() => reset({ id, name, description, imageUrl, price }), []);
-
     return (
         <div className={styles.formContainer}>
             <div className={styles.titleAndBtnContainer}>
                 <ReturnBtn onClick={closeForm} className={styles.closeBtn} />
-                <h1 className={styles.title}>Редактирование объявления</h1>
+                <h1 className={styles.title}>Создание нового объявления</h1>
             </div>
             <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
                 <div className={styles.inputGroup}>
@@ -89,7 +73,6 @@ export function FormEdit({
                         className={styles.clearBtn}
                         onClick={() => handleClickResetField('name')}
                     />
-
                     {errors.name && (
                         <span>Название объявления обязательно</span>
                     )}
@@ -141,7 +124,7 @@ export function FormEdit({
                     />
                     {errors.price && <span>Цена обязательна</span>}
                 </div>
-                <SubmitBtn text="Сохранить" />
+                <SubmitBtn text="Создать" />
             </form>
         </div>
     );

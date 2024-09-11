@@ -5,6 +5,8 @@ import { AdvertisementList } from '../components/AdvertisementList';
 import { CustomSelect } from '../components/Select/CustomSelect';
 import { Search } from '../components/Search';
 import { Loader } from '../components/Loader';
+import { FormCreateAdvertisment } from '../components/FormCreateAdvertisment';
+import Modal from '../components/Modal/Modal';
 
 import { Option } from '../components/Select/types';
 import { TAdvertisment } from '../../types';
@@ -42,6 +44,11 @@ export function AdsListPage() {
     const [isDataFromSearch, setIsDataFromSearch] = useState(false);
 
     const [searchValue, setSearchValue] = useState('');
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const openModal = () => setIsModalOpen(true);
+    const closeModal = () => setIsModalOpen(false);
 
     const handlePageChange = (event: { selected: number }) => {
         setCurrentPage(event.selected);
@@ -98,6 +105,18 @@ export function AdsListPage() {
                     adCountPerPage={adCountPerPage.value}
                 />
             </div>
+            <div className={styles.containerCreateBtn}>
+                <button
+                    className={styles.createBtn}
+                    onClick={openModal}
+                    type="button"
+                >
+                    Создать объявление
+                </button>
+            </div>
+            <Modal isOpen={isModalOpen} onClose={closeModal}>
+                <FormCreateAdvertisment closeForm={closeModal} />
+            </Modal>
             <AdvertisementList itemsDataAdv={advertisementItems} />
         </>
     );

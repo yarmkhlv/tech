@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { AdvertismentState } from '../../pages/AdsListPage';
 
 import { searchAdvertisements } from '../../helpers/api/searchAdvertisements';
-import { ClearBtn } from '../AdDetailsModes/FormEdit/ClearBtn/ClearBtn';
+import { ClearBtn } from '../ClearBtn/ClearBtn';
 
 import { MIN_LENGTH_TO_SEND_REQUEST } from '../../helpers/variables/variables';
 import styles from './search.module.scss';

@@ -3,7 +3,7 @@ interface IPropsCloseEditBtn {
     className?: string;
 }
 
-export function CloseEditBtn({ onClick, className }: IPropsCloseEditBtn) {
+export function ReturnBtn({ onClick, className }: IPropsCloseEditBtn) {
     return (
         <button type="button" className={className} onClick={onClick}>
             <svg
