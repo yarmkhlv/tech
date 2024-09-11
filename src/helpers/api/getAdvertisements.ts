@@ -1,4 +1,6 @@
-export async function getAdvertisements(page = 1, limit = 10) {
+import { getTotalPagesFromLink } from './getTotalPagesFromHeader';
+
+export async function getAdvertisements(page: number = 1, limit: number = 10) {
     const url = `http://localhost:3000/advertisements?_page=${page}&_limit=${limit}`;
 
     try {
@@ -12,19 +14,6 @@ export async function getAdvertisements(page = 1, limit = 10) {
         const data = await response.json();
 
         const linkHeader = response.headers.get('link');
-
-        const getTotalPagesFromLink = (linkHeader: string | null) => {
-            if (!linkHeader) return null;
-
-            const lastLinkRegex = /_page=(\d+)&_limit=\d+>; rel="last"/;
-            const match = linkHeader.match(lastLinkRegex);
-
-            if (match) {
-                return parseInt(match[1], 10);
-            } else {
-                return null;
-            }
-        };
 
         const totalPages = getTotalPagesFromLink(linkHeader);
 

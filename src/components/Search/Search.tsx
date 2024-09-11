@@ -1,50 +1,114 @@
 import { useState, useEffect } from 'react';
 
+import { AdvertismentState } from '../../pages/AdsListPage';
+
+import { searchAdvertisements } from '../../helpers/api/searchAdvertisements';
+import { ClearBtn } from '../AdDetailsModes/FormEdit/ClearBtn/ClearBtn';
+
+import { MIN_LENGTH_TO_SEND_REQUEST } from '../../helpers/variables/variables';
 import styles from './search.module.scss';
 
-export function Search() {
-    const [searchTerm, setSearchTerm] = useState('');
-    const [debouncedTerm, setDebouncedTerm] = useState('');
-    console.log(searchTerm, 'serachTerm');
-    console.log(debouncedTerm, 'debouncedTerm');
-    useEffect(() => {
-        const handler = setTimeout(() => {
-            if (searchTerm.length >= 3) {
-                setDebouncedTerm(searchTerm);
-            }
-        }, 2000);
+interface IPropsSearch {
+    isDataFromSearch: boolean;
+    setIsDataFromSearch: (value: boolean) => void;
+    searchValue: string;
+    setSearchValue: (value: string) => void;
+    setAdvertisementItems: React.Dispatch<
+        React.SetStateAction<AdvertismentState>
+    >;
+    currentPage: number;
+    setCurrentPage: (page: number) => void;
+    setCountPagesForPagination: (pages: number) => void;
+    adCountPerPage: number;
+}
 
-        return () => {
-            clearTimeout(handler);
-        };
-    }, [searchTerm]);
+export function Search({
+    isDataFromSearch,
+    setIsDataFromSearch,
+    searchValue,
+    setSearchValue,
+    setAdvertisementItems,
+    currentPage,
+    setCurrentPage,
+    setCountPagesForPagination,
+    adCountPerPage,
+}: IPropsSearch) {
+    const [statusLoading, setStatusLoading] = useState(false);
+    const [errorText, setErrorText] = useState('');
 
-    useEffect(() => {
-        if (debouncedTerm) {
-            console.log(debouncedTerm, 'atFetch');
-            fetch(
-                `http://localhost:3000/advertisements?name_like=${debouncedTerm}`,
-            )
-                .then((response) => response.json())
-                .then((data) => {
-                    console.log(data);
-                    // Обработка полученных данных
-                })
-                .catch((error) => {
-                    console.error('Error fetching data:', error);
-                });
+    const onSearch = () => {
+        if (searchValue.length < MIN_LENGTH_TO_SEND_REQUEST) {
+            setErrorText('Недостаточно данных для поиска');
+            return;
         }
-    }, [debouncedTerm]);
+        setStatusLoading(true);
+        setErrorText('');
+
+        const fetchAdvertisements = async () => {
+            const response = await searchAdvertisements(
+                searchValue,
+                isDataFromSearch ? currentPage + 1 : 1,
+                adCountPerPage,
+            );
+            if (response.data !== null && response.data.length > 0) {
+                setCountPagesForPagination(response.pages);
+                if (currentPage > response.pages) {
+                    setCurrentPage(response.pages - 1);
+                }
+                setAdvertisementItems(response.data);
+                setIsDataFromSearch(true);
+            } else {
+                setErrorText('По вашему запросу данных не найдено');
+            }
+            setStatusLoading(false);
+        };
+
+        fetchAdvertisements();
+    };
+
+    useEffect(() => {
+        if (searchValue.length >= 1) return;
+        setIsDataFromSearch(false);
+        setErrorText('');
+    }, [searchValue]);
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            onSearch();
+        }
+    };
 
     return (
-        <div>
-            <input
-                type="text"
-                className={styles.searchInput}
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Поиск объявления"
-            />
+        <div className={styles.searchContainer}>
+            <div className={styles.inputContainer}>
+                <input
+                    onKeyDown={handleKeyDown}
+                    type="text"
+                    className={styles.searchInput}
+                    value={searchValue}
+                    onChange={(e) => {
+                        setErrorText('');
+                        setSearchValue(e.target.value);
+                    }}
+                    placeholder="Название объявления"
+                />
+                {errorText && (
+                    <div className={styles.errorText}>{errorText}</div>
+                )}
+            </div>
+            {statusLoading ? (
+                <div className={styles.spinner} />
+            ) : (
+                <ClearBtn
+                    className={styles.clearBtn}
+                    onClick={() => {
+                        setSearchValue('');
+                    }}
+                />
+            )}
+            <button className={styles.searchBtn} onClick={onSearch}>
+                Поиск
+            </button>
         </div>
     );
 }

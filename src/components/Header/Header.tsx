@@ -1,5 +1,3 @@
-import { Search } from '../Search';
-
 import styles from './header.module.scss';
 
 export function Header() {
@@ -10,7 +8,6 @@ export function Header() {
                 src="https://avatars.githubusercontent.com/u/13049122?s=200&v=4"
                 alt="tech logot"
             ></img>
-            <Search />
         </header>
     );
 }

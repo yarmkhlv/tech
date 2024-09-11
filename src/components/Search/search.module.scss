@@ -1,8 +1,17 @@
 @import '../../styles/mixins';
 
-.searchInput {
-    width: 250px;
+.searchContainer {
+    width: 100%;
 
+    position: relative;
+}
+
+.inputContainer {
+    height: 58px;
+}
+
+.searchInput {
+    width: 100%;
     padding: 10px 33px 10px 10px;
 
     border: 1px solid #cccccc;
@@ -10,12 +19,59 @@
 
     font-size: 16px;
     color: #333;
+}
 
-    @include tablet {
-        width: 350px;
-    }
+.spinner {
+    position: absolute;
+    top: 10px;
+    right: 10px;
 
-    @include desktop {
-        width: 450px;
+    width: 20px;
+    height: 20px;
+
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+
+    animation: spin 1s linear infinite;
+}
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
     }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.clearBtn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+
+    width: 20px;
+    height: 20px;
+}
+
+.searchBtn {
+    margin-top: 10px;
+    padding: 7px 46px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+
+    &:hover {
+        background-color: #165ba4;
+    }
+}
+
+.errorText {
+    font-size: 12px;
+    line-height: 14px;
+
+    color: #c94242;
 }

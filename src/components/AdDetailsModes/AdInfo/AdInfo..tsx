@@ -27,15 +27,15 @@ export function AdInfo({ advertisement, setIsEditing }: IPropsAdInfo) {
                 )}
                 <p className={styles.productPrice}>{formatCurrency(price)}</p>
                 <div className={styles.interactions}>
-                    <p className={styles.likes}>👍{likes}</p>
-                    <p className={styles.views}>👁️{views}</p>
+                    <p className={styles.likes}>❤️{likes}</p>
+                    <p className={styles.views}>👁{views}</p>
                 </div>
                 <button
                     type="button"
                     className={styles.editButton}
                     onClick={() => setIsEditing(true)}
                 >
-                    Edit
+                    Редактировать объявление
                 </button>
             </div>
         </div>

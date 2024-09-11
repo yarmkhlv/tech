@@ -1,12 +1,29 @@
+@import '../../../styles/mixins';
+
 .adInfoBlock {
     width: fit-content;
 
-    margin: 0 auto;
+    margin: 10px auto;
 
     display: flex;
     flex-direction: column;
 
     row-gap: 20px;
+
+    @include tablet {
+        margin-top: 20px;
+    }
+
+    @include desktop {
+        margin-top: 50px;
+
+        flex-direction: row;
+        column-gap: 10px;
+    }
+
+    @include large-desktop {
+        column-gap: 50px;
+    }
 }
 
 .imageContainer {
@@ -15,6 +32,18 @@
     border-radius: 8px;
 
     overflow: hidden;
+
+    @include tablet {
+        max-width: 400px;
+    }
+
+    @include desktop {
+        max-width: 430px;
+    }
+
+    @include large-desktop {
+        max-width: 500px;
+    }
 }
 
 .img {
@@ -32,6 +61,20 @@
     font-size: 20px;
     line-height: 28px;
     font-weight: 700;
+
+    @include tablet {
+        font-size: 24px;
+        line-height: 32px;
+    }
+
+    @include desktop {
+        font-size: 28px;
+        line-height: 38px;
+    }
+    @include tablet {
+        font-size: 30px;
+        line-height: 42px;
+    }
 }
 
 .productDescription {

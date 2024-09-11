@@ -3,11 +3,14 @@ import { useEffect, useState } from 'react';
 import { Paginate } from '../components/Paginate/Paginate';
 import { AdvertisementList } from '../components/AdvertisementList';
 import { CustomSelect } from '../components/Select/CustomSelect';
+import { Search } from '../components/Search';
 import { Loader } from '../components/Loader';
 
 import { Option } from '../components/Select/types';
 import { TAdvertisment } from '../../types';
 import { getAdvertisements } from '../helpers/api';
+
+import styles from './adsListPage.module.scss';
 
 const OPTIONS_FOR_SELECT = [
     {
@@ -24,7 +27,7 @@ const OPTIONS_FOR_SELECT = [
     },
 ];
 
-type AdvertismentState = TAdvertisment[] | null;
+export type AdvertismentState = TAdvertisment[] | null;
 
 export function AdsListPage() {
     const [loading, setLoading] = useState(false);
@@ -36,16 +39,19 @@ export function AdsListPage() {
     >(null);
     const [adCountPerPage, setAdCountPerPage] = useState(OPTIONS_FOR_SELECT[0]);
     const [currentPage, setCurrentPage] = useState(0);
+    const [isDataFromSearch, setIsDataFromSearch] = useState(false);
+
+    const [searchValue, setSearchValue] = useState('');
 
     const handlePageChange = (event: { selected: number }) => {
         setCurrentPage(event.selected);
     };
-
     const handleChangeSelect = (option: Option) => {
         setAdCountPerPage(option);
     };
 
     useEffect(() => {
+        if (isDataFromSearch) return;
         setLoading(true);
         const fetchAdvertisements = async () => {
             const response = await getAdvertisements(
@@ -62,7 +68,7 @@ export function AdsListPage() {
             }
         };
         fetchAdvertisements();
-    }, [currentPage, adCountPerPage.value]);
+    }, [currentPage, adCountPerPage.value, isDataFromSearch]);
 
     if (loading || !countPagesForPagination || !advertisementItems)
         return <Loader />;
@@ -74,11 +80,24 @@ export function AdsListPage() {
                 pageCount={countPagesForPagination}
                 currentPage={currentPage}
             />
-            <CustomSelect
-                options={OPTIONS_FOR_SELECT}
-                value={adCountPerPage}
-                onChange={handleChangeSelect}
-            />
+            <div className={styles.wrapperForSelectAndSearch}>
+                <CustomSelect
+                    options={OPTIONS_FOR_SELECT}
+                    value={adCountPerPage}
+                    onChange={handleChangeSelect}
+                />
+                <Search
+                    isDataFromSearch={isDataFromSearch}
+                    setIsDataFromSearch={setIsDataFromSearch}
+                    searchValue={searchValue}
+                    setSearchValue={setSearchValue}
+                    setAdvertisementItems={setAdvertisementItems}
+                    currentPage={currentPage}
+                    setCurrentPage={setCurrentPage}
+                    setCountPagesForPagination={setCountPagesForPagination}
+                    adCountPerPage={adCountPerPage.value}
+                />
+            </div>
             <AdvertisementList itemsDataAdv={advertisementItems} />
         </>
     );

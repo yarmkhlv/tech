@@ -1,11 +1,11 @@
 interface IPropsClearBtn {
-    resetField: () => void;
+    onClick: () => void;
     className?: string;
 }
 
-export function ClearBtn({ resetField, className }: IPropsClearBtn) {
+export function ClearBtn({ onClick, className }: IPropsClearBtn) {
     return (
-        <button type="button" className={className} onClick={resetField}>
+        <button type="button" className={className} onClick={onClick}>
             <svg
                 width="100%"
                 height="100%"

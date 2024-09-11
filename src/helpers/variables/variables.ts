@@ -1,0 +1,1 @@
+export const MIN_LENGTH_TO_SEND_REQUEST = 3;

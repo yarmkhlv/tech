@@ -86,7 +86,7 @@ export function FormEdit({
                     />
                     <ClearBtn
                         className={styles.clearBtn}
-                        resetField={() => handleClickResetField('name')}
+                        onClick={() => handleClickResetField('name')}
                     />
 
                     {errors.name && (
@@ -104,7 +104,7 @@ export function FormEdit({
                     />
                     <ClearBtn
                         className={styles.clearBtn}
-                        resetField={() => handleClickResetField('description')}
+                        onClick={() => handleClickResetField('description')}
                     />
                 </div>
                 <div className={styles.inputGroup}>
@@ -119,7 +119,7 @@ export function FormEdit({
                     />
                     <ClearBtn
                         className={styles.clearBtn}
-                        resetField={() => handleClickResetField('imageUrl')}
+                        onClick={() => handleClickResetField('imageUrl')}
                     />
                     {errors.imageUrl && <span>Изображение обязательно</span>}
                 </div>
@@ -136,7 +136,7 @@ export function FormEdit({
                     />
                     <ClearBtn
                         className={styles.clearBtn}
-                        resetField={() => handleClickResetField('price')}
+                        onClick={() => handleClickResetField('price')}
                     />
                     {errors.price && <span>Цена обязательна</span>}
                 </div>
