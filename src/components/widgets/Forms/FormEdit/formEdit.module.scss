@@ -1,0 +1,223 @@
+@import '../../../../styles/mixins';
+
+.formContainer {
+    padding: 10px;
+
+    @include tablet {
+        padding: 20px;
+    }
+}
+
+.titleAndBtnContainer {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin: 0 auto;
+    max-width: 300px;
+
+    @include tablet {
+        max-width: 500px;
+    }
+    @include desktop {
+        max-width: 600px;
+    }
+}
+
+.title {
+    flex: 1;
+
+    text-align: center;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 700;
+
+    @include tablet {
+        font-size: 16px;
+        line-height: 22px;
+    }
+
+    @include desktop {
+        font-size: 18px;
+        line-height: 28px;
+    }
+    @include desktop {
+        font-size: 20px;
+        line-height: 32px;
+    }
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    max-width: 400px;
+
+    margin: 0 auto;
+    padding: 20px;
+
+    @include tablet {
+        max-width: 500px;
+    }
+
+    @include desktop {
+        max-width: 600px;
+    }
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+
+    position: relative;
+}
+
+.label {
+    font-size: 12px;
+    margin-bottom: 8px;
+    color: #666666;
+}
+
+.inputWrapper {
+    display: flex;
+    align-items: center;
+    position: relative;
+    background-color: #f4f4f4;
+    border-radius: 6px;
+    padding: 8px;
+}
+
+.input {
+    width: 100%;
+    padding: 10px 33px 10px 10px;
+
+    border: 1px solid #cccccc;
+    border-radius: 8px;
+
+    font-size: 16px;
+    color: #333;
+
+    &:focus {
+        border-color: #007bff;
+    }
+}
+
+.input[type='number'] {
+    -moz-appearance: textfield; /* Для Firefox */
+    appearance: textfield; /* Для Chrome и других браузеров */
+}
+
+.input[type='number']::-webkit-inner-spin-button,
+.input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.textArea {
+    height: 125px;
+
+    outline: none;
+
+    resize: none;
+
+    &:focus {
+        border-color: #007bff;
+    }
+}
+
+.clearBtn {
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 18px;
+    height: 18px;
+
+    position: absolute;
+    right: 10px;
+    top: 33px;
+
+    background: transparent;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    transition:
+        width 0.3s,
+        height 0.3s,
+        background-color 0.3s,
+        border-color 0.3s;
+
+    &:hover {
+        background-color: #acbed1;
+        border-color: #acbed1;
+    }
+    &:active {
+        width: 16px;
+        height: 16px;
+
+        svg {
+            width: 9px;
+            height: 9px;
+        }
+    }
+
+    svg {
+        width: 10px;
+        height: 10px;
+    }
+}
+
+.closeBtn {
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 20px;
+    height: 20px;
+
+    background: transparent;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    transition:
+        width 0.3s,
+        height 0.3s,
+        background-color 0.3s,
+        border-color 0.3s;
+
+    &:hover {
+        background-color: #acbed1;
+        border-color: #acbed1;
+    }
+    &:active {
+        width: 47px;
+        height: 47px;
+
+        svg {
+            width: 33px;
+            height: 33px;
+        }
+    }
+
+    svg {
+        rotate: -90deg;
+        fill: #000;
+        width: 17px;
+        height: 17px;
+    }
+
+    @include tablet {
+        width: 50px;
+        height: 50px;
+
+        svg {
+            width: 35px;
+            height: 35px;
+        }
+    }
+}

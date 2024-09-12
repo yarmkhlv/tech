@@ -1,5 +1,5 @@
-import { Container } from '../Container';
-import { Header } from '../Header';
+import { MainContainer } from '../Containers/MainContainer';
+import { Header } from '../shared/Header';
 
 interface ILayoutProps {
     children: React.ReactNode;
@@ -7,9 +7,9 @@ interface ILayoutProps {
 
 export const Layout = ({ children }: ILayoutProps) => {
     return (
-        <Container>
+        <MainContainer>
             <Header />
             {children}
-        </Container>
+        </MainContainer>
     );
 };

@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 
-import { Paginate } from '../components/Paginate/Paginate';
-import { CustomSelect } from '../components/Select/CustomSelect';
-import { Loader } from '../components/Loader';
-import Modal from '../components/Modal/Modal';
+import { Paginate } from '../components/shared/Paginate/Paginate';
+import { CustomSelect } from '../components/shared/Select/CustomSelect';
+import { Loader } from '../components/shared/Loader';
+import Modal from '../components/shared/Modal/Modal';
 
-import { Option, TOptionSelect } from '../components/Select/helpers/types';
+import { Option } from '../components/shared/Select/helpers/types';
 import { TOrder } from '../../types';
 import { getOrders } from '../helpers/api/getOrders';
 
@@ -14,12 +14,15 @@ import { getFormattedDate } from '../helpers/getFormattedDate';
 import {
     OPTIONS_FOR_SELECT_ELEMENTS_COUNT,
     OPTIONS_FOR_SELECT_STATUS,
-} from '../components/Select/helpers/variables';
-import { Switcher } from '../components/Switcher';
+} from '../components/shared/Select/helpers/variables';
+import { Switcher } from '../components/shared/Switcher';
+import useModal from '../hooks/useModal';
+import { ContentContainer } from '../components/Containers/ContentContainer';
 
 export type OrderState = TOrder[] | null;
 
 export function OrdersPage() {
+    const { isOpen, openModal, closeModal } = useModal();
     const [loading, setLoading] = useState(false);
     const [orderItems, setOrderItems] = useState<OrderState>([]);
 
@@ -35,11 +38,6 @@ export function OrdersPage() {
         OPTIONS_FOR_SELECT_STATUS[0],
     );
     const [sortPriceDesc, setSortPriceDesc] = useState(false);
-
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
-    const openModal = () => setIsModalOpen(true);
-    const closeModal = () => setIsModalOpen(false);
 
     const handleChangeSwitcher = () => {
         setSortPriceDesc(!sortPriceDesc);
@@ -79,7 +77,7 @@ export function OrdersPage() {
     if (loading || !countPagesForPagination || !orderItems) return <Loader />;
 
     return (
-        <>
+        <ContentContainer>
             <Paginate
                 onPageChange={handlePageChange}
                 pageCount={countPagesForPagination}
@@ -96,6 +94,7 @@ export function OrdersPage() {
                 onChange={handleChangeSelectStatus}
             />
             <Switcher
+                text="Отсортировать стоимость по убыванию"
                 switcherActive={sortPriceDesc}
                 handleChangeSwitcher={handleChangeSwitcher}
             />
@@ -122,6 +121,6 @@ export function OrdersPage() {
                     ))}
                 </div>
             )}
-        </>
+        </ContentContainer>
     );
 }

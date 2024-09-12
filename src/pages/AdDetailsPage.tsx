@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { AdInfo } from '../components/AdDetailsModes/AdInfo/AdInfo.';
-import { FormEdit } from '../components/AdDetailsModes/FormEdit/FormEdit';
-import { Loader } from '../components/Loader';
+import { AdInfo } from '../components/widgets/AdInfo';
+import { FormEdit } from '../components/widgets/Forms/FormEdit/FormEdit';
+import { Loader } from '../components/shared/Loader';
 
 import { TAdvertisment } from '../../types';
 

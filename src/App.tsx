@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AdsListPage } from './pages/AdsListPage';
 import { OrdersPage } from './pages/OrdersPage';
 
-import { Navigation } from './components/Navigation';
+import { Navigation } from './components/widgets/Navigation';
 
 import styles from './app.module.scss';
 import { AdDetailsPage } from './pages/AdDetailsPage';

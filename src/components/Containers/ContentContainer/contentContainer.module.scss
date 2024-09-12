@@ -1,0 +1,17 @@
+@import '../../../styles/mixins';
+
+.container {
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 420px;
+
+    @include tablet {
+        max-width: 450px;
+    }
+    @include desktop {
+        max-width: 600px;
+    }
+    @include desktop {
+        max-width: 800px;
+    }
+}
