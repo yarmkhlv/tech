@@ -2,7 +2,7 @@
     "advertisements": [
         {
             "name": "Не цветок",
-            "description": "zxcursed\n)))))",
+            "description": "zxcursed\n)))))dsdsd",
             "imageUrl": "https://media.istockphoto.com/id/1372896722/ru/%D1%84%D0%BE%D1%82%D0%BE/%D0%B3%D0%BE%D1%80%D1%88%D0%B5%D1%87%D0%BD%D0%BE%D0%B5-%D0%B1%D0%B0%D0%BD%D0%B0%D0%BD%D0%BE%D0%B2%D0%BE%D0%B5-%D1%80%D0%B0%D1%81%D1%82%D0%B5%D0%BD%D0%B8%D0%B5-%D0%B2%D1%8B%D0%B4%D0%B5%D0%BB%D0%B5%D0%BD%D0%BD%D0%BE%D0%B5-%D0%BD%D0%B0-%D0%B1%D0%B5%D0%BB%D0%BE%D0%BC-%D1%84%D0%BE%D0%BD%D0%B5.jpg?s=1024x1024&w=is&k=20&c=5ORk78aJ49BvmLBEePnJvQNqYY_u1fxzJS_cCK_RCPw=",
             "createdAt": "2022-08-12T20:16:55.351Z",
             "price": "322",
@@ -574,7 +574,7 @@
             "status": 4,
             "createdAt": "2024-08-12T20:20:55.351Z",
             "finishedAt": "2024-08-12T20:25:55.351Z",
-            "total": 33000,
+            "total": 60000,
             "deliveryWay": "sdek",
             "items": [
                 {
@@ -597,6 +597,70 @@
                     "likes": 0,
                     "imageUrl": "https://media.istockphoto.com/id/826809148/fr/photo/une-tasse-de-caf%C3%A9-sur-la-table-matin.jpg?s=1024x1024&w=is&k=20&c=W7K4JqhFK36y0Y1v3eKJnuLRfQ3bd1XDFDarhUjsBrw=",
                     "count": 5
+                }
+            ]
+        },
+        {
+            "id": "3",
+            "status": 0,
+            "createdAt": "2024-05-12T20:20:55.351Z",
+            "finishedAt": "2024-08-12T20:25:55.351Z",
+            "total": 110500,
+            "deliveryWay": "sdek",
+            "items": [
+                {
+                    "id": "46",
+                    "name": "Кресло для массажа",
+                    "description": "Идеально для снятия усталости и расслабления.",
+                    "price": 50000,
+                    "createdAt": "2024-10-08T19:00:00.000Z",
+                    "views": 200,
+                    "likes": 50,
+                    "imageUrl": "https://media.istockphoto.com/id/826809148/fr/photo/une-tasse-de-caf%C3%A9-sur-la-table-matin.jpg?s=1024x1024&w=is&k=20&c=W7K4JqhFK36y0Y1v3eKJnuLRfQ3bd1XDFDarhUjsBrw=",
+                    "count": 2
+                },
+                {
+                    "id": "53",
+                    "name": "Покрывало",
+                    "description": "Теплое и мягкое для комфортного сна.",
+                    "price": 3500,
+                    "createdAt": "2024-10-15T12:00:00.000Z",
+                    "views": 220,
+                    "likes": 20,
+                    "imageUrl": "https://media.istockphoto.com/id/826809148/fr/photo/une-tasse-de-caf%C3%A9-sur-la-table-matin.jpg?s=1024x1024&w=is&k=20&c=W7K4JqhFK36y0Y1v3eKJnuLRfQ3bd1XDFDarhUjsBrw=",
+                    "count": 3
+                }
+            ]
+        },
+        {
+            "id": "4",
+            "status": 0,
+            "createdAt": "2024-08-12T20:20:55.351Z",
+            "finishedAt": "2024-08-12T20:25:55.351Z",
+            "total": 7000,
+            "deliveryWay": "sdek",
+            "items": [
+                {
+                    "id": "44",
+                    "name": "Греческий йогурт",
+                    "description": "Продукт высокого качества, с высоким содержанием белка.",
+                    "price": 500,
+                    "createdAt": "2024-10-06T17:00:00.000Z",
+                    "views": 150,
+                    "likes": 12,
+                    "imageUrl": "https://media.istockphoto.com/id/826809148/fr/photo/une-tasse-de-caf%C3%A9-sur-la-table-matin.jpg?s=1024x1024&w=is&k=20&c=W7K4JqhFK36y0Y1v3eKJnuLRfQ3bd1XDFDarhUjsBrw=",
+                    "count": 8
+                },
+                {
+                    "id": "43",
+                    "name": "Теплый свитер",
+                    "description": "Мягкий и уютный свитер для холодной погоды.",
+                    "price": 3000,
+                    "createdAt": "2024-10-05T16:00:00.000Z",
+                    "views": 220,
+                    "likes": 18,
+                    "imageUrl": "https://media.istockphoto.com/id/826809148/fr/photo/une-tasse-de-caf%C3%A9-sur-la-table-matin.jpg?s=1024x1024&w=is&k=20&c=W7K4JqhFK36y0Y1v3eKJnuLRfQ3bd1XDFDarhUjsBrw=",
+                    "count": 1
                 }
             ]
         }

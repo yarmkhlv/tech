@@ -8,26 +8,12 @@ import { Loader } from '../components/Loader';
 import { FormCreateAdvertisment } from '../components/FormCreateAdvertisment';
 import Modal from '../components/Modal/Modal';
 
-import { Option } from '../components/Select/types';
+import { Option } from '../components/Select/helpers/types';
 import { TAdvertisment } from '../../types';
 import { getAdvertisements } from '../helpers/api';
 
 import styles from './adsListPage.module.scss';
-
-const OPTIONS_FOR_SELECT = [
-    {
-        value: 10,
-        label: '10',
-    },
-    {
-        value: 20,
-        label: '20',
-    },
-    {
-        value: 30,
-        label: '30',
-    },
-];
+import { OPTIONS_FOR_SELECT_ELEMENTS_COUNT } from '../components/Select/helpers/variables';
 
 export type AdvertismentState = TAdvertisment[] | null;
 
@@ -39,11 +25,11 @@ export function AdsListPage() {
     const [countPagesForPagination, setCountPagesForPagination] = useState<
         null | number
     >(null);
-    const [adCountPerPage, setAdCountPerPage] = useState(OPTIONS_FOR_SELECT[0]);
+    const [adCountPerPage, setAdCountPerPage] = useState(
+        OPTIONS_FOR_SELECT_ELEMENTS_COUNT[0],
+    );
     const [currentPage, setCurrentPage] = useState(0);
     const [isDataFromSearch, setIsDataFromSearch] = useState(false);
-
-    const [searchValue, setSearchValue] = useState('');
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -89,15 +75,13 @@ export function AdsListPage() {
             />
             <div className={styles.wrapperForSelectAndSearch}>
                 <CustomSelect
-                    options={OPTIONS_FOR_SELECT}
+                    options={OPTIONS_FOR_SELECT_ELEMENTS_COUNT}
                     value={adCountPerPage}
                     onChange={handleChangeSelect}
                 />
                 <Search
                     isDataFromSearch={isDataFromSearch}
                     setIsDataFromSearch={setIsDataFromSearch}
-                    searchValue={searchValue}
-                    setSearchValue={setSearchValue}
                     setAdvertisementItems={setAdvertisementItems}
                     currentPage={currentPage}
                     setCurrentPage={setCurrentPage}

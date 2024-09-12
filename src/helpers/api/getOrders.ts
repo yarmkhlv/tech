@@ -1,10 +1,20 @@
 import { getTotalPagesFromLink } from './getTotalPagesFromHeader';
 
-export async function getOrders(page: number = 1, limit: number = 10) {
-    const url = `http://localhost:3000/orders?_page=${page}&_limit=${limit}`;
+const API_URL = import.meta.env.VITE_API_URL;
+
+export async function getOrders(
+    page: number = 1,
+    limit: number = 10,
+    status: number,
+    sortPriceDesc: boolean,
+) {
+    const urlSortPriceAsc = `${API_URL}/orders?_page=${page}&_limit=${limit}&status=${status}&_sort=total&_order=asc`;
+    const urlSortPriceDesc = `${API_URL}/orders?_page=${page}&_limit=${limit}&status=${status}&_sort=total&_order=desc`;
 
     try {
-        const response = await fetch(url);
+        const response = await fetch(
+            sortPriceDesc ? urlSortPriceDesc : urlSortPriceAsc,
+        );
         if (!response.ok) {
             throw new Error(
                 `Error: ${response.status} - ${response.statusText}`,

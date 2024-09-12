@@ -7,6 +7,8 @@ import { Loader } from '../components/Loader';
 
 import { TAdvertisment } from '../../types';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export function AdDetailsPage() {
     const { id } = useParams<{ id: string }>();
     const [advertisement, setAdvertisement] = useState<TAdvertisment | null>(
@@ -22,7 +24,7 @@ export function AdDetailsPage() {
             if (id) {
                 try {
                     const response = await fetch(
-                        `http://localhost:3000/advertisements/${id}`,
+                        `${API_URL}/advertisements/${id}`,
                     );
                     if (response.ok) {
                         const data: TAdvertisment = await response.json();

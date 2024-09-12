@@ -5,27 +5,17 @@ import { CustomSelect } from '../components/Select/CustomSelect';
 import { Loader } from '../components/Loader';
 import Modal from '../components/Modal/Modal';
 
-import { Option } from '../components/Select/types';
+import { Option, TOptionSelect } from '../components/Select/helpers/types';
 import { TOrder } from '../../types';
 import { getOrders } from '../helpers/api/getOrders';
 
 import { getStatusLabel } from '../helpers/getStatusLabel';
 import { getFormattedDate } from '../helpers/getFormattedDate';
-
-const OPTIONS_FOR_SELECT = [
-    {
-        value: 10,
-        label: '10',
-    },
-    {
-        value: 20,
-        label: '20',
-    },
-    {
-        value: 30,
-        label: '30',
-    },
-];
+import {
+    OPTIONS_FOR_SELECT_ELEMENTS_COUNT,
+    OPTIONS_FOR_SELECT_STATUS,
+} from '../components/Select/helpers/variables';
+import { Switcher } from '../components/Switcher';
 
 export type OrderState = TOrder[] | null;
 
@@ -36,19 +26,33 @@ export function OrdersPage() {
     const [countPagesForPagination, setCountPagesForPagination] = useState<
         null | number
     >(null);
-    const [adCountPerPage, setAdCountPerPage] = useState(OPTIONS_FOR_SELECT[0]);
+    const [adCountPerPage, setAdCountPerPage] = useState(
+        OPTIONS_FOR_SELECT_ELEMENTS_COUNT[0],
+    );
     const [currentPage, setCurrentPage] = useState(0);
+
+    const [selectedStatus, setSelectedStatus] = useState(
+        OPTIONS_FOR_SELECT_STATUS[0],
+    );
+    const [sortPriceDesc, setSortPriceDesc] = useState(false);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
 
+    const handleChangeSwitcher = () => {
+        setSortPriceDesc(!sortPriceDesc);
+    };
+
     const handlePageChange = (event: { selected: number }) => {
         setCurrentPage(event.selected);
     };
-    const handleChangeSelect = (option: Option) => {
+    const handleChangeSelectCount = (option: Option) => {
         setAdCountPerPage(option);
+    };
+    const handleChangeSelectStatus = (option: Option) => {
+        setSelectedStatus(option);
     };
 
     useEffect(() => {
@@ -57,6 +61,8 @@ export function OrdersPage() {
             const response = await getOrders(
                 currentPage + 1,
                 adCountPerPage.value,
+                selectedStatus.value,
+                sortPriceDesc,
             );
             if (response !== null) {
                 setCountPagesForPagination(response.pages);
@@ -68,7 +74,7 @@ export function OrdersPage() {
             }
         };
         fetchOrders();
-    }, [currentPage, adCountPerPage.value]);
+    }, [currentPage, adCountPerPage.value, selectedStatus, sortPriceDesc]);
 
     if (loading || !countPagesForPagination || !orderItems) return <Loader />;
 
@@ -80,9 +86,18 @@ export function OrdersPage() {
                 currentPage={currentPage}
             />
             <CustomSelect
-                options={OPTIONS_FOR_SELECT}
+                options={OPTIONS_FOR_SELECT_ELEMENTS_COUNT}
                 value={adCountPerPage}
-                onChange={handleChangeSelect}
+                onChange={handleChangeSelectCount}
+            />
+            <CustomSelect
+                options={OPTIONS_FOR_SELECT_STATUS}
+                value={selectedStatus}
+                onChange={handleChangeSelectStatus}
+            />
+            <Switcher
+                switcherActive={sortPriceDesc}
+                handleChangeSwitcher={handleChangeSwitcher}
             />
             {orderItems?.length > 0 && (
                 <div

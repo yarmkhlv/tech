@@ -2,17 +2,16 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AdsListPage } from './pages/AdsListPage';
 import { OrdersPage } from './pages/OrdersPage';
 
-import { Header } from './components/Header';
 import { Navigation } from './components/Navigation';
 
 import styles from './app.module.scss';
 import { AdDetailsPage } from './pages/AdDetailsPage';
+import { Layout } from './components/Layout';
 
 export function App() {
     return (
         <Router>
-            <div className={styles.container}>
-                <Header />
+            <Layout>
                 <div className={styles.contentWrapper}>
                     <Navigation />
                     <main className={styles.mainContent}>
@@ -26,7 +25,7 @@ export function App() {
                         </Routes>
                     </main>
                 </div>
-            </div>
+            </Layout>
         </Router>
     );
 }

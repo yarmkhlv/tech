@@ -1,7 +1,10 @@
+import { TAdvertisment } from '../../../types';
 import { getTotalPagesFromLink } from './getTotalPagesFromHeader';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export async function getAdvertisements(page: number = 1, limit: number = 10) {
-    const url = `http://localhost:3000/advertisements?_page=${page}&_limit=${limit}`;
+    const url = `${API_URL}/advertisements?_page=${page}&_limit=${limit}`;
 
     try {
         const response = await fetch(url);
@@ -11,7 +14,7 @@ export async function getAdvertisements(page: number = 1, limit: number = 10) {
             );
         }
 
-        const data = await response.json();
+        const data: TAdvertisment[] = await response.json();
 
         const linkHeader = response.headers.get('link');
 

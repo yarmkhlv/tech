@@ -15,6 +15,8 @@ interface IPropsFormCreate {
     closeForm: () => void;
 }
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export function FormCreateAdvertisment({ closeForm }: IPropsFormCreate) {
     const {
         register,
@@ -25,16 +27,13 @@ export function FormCreateAdvertisment({ closeForm }: IPropsFormCreate) {
 
     const onSubmit = async (data: Partial<TAdvertisment>) => {
         try {
-            const response = await fetch(
-                'http://localhost:3000/advertisements',
-                {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data),
+            const response = await fetch(`${API_URL}/advertisements`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
                 },
-            );
+                body: JSON.stringify(data),
+            });
             if (response.ok) {
                 closeForm();
             } else {

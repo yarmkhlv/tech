@@ -1,19 +1,19 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styles from './customSelect.module.scss';
 
-import { Option } from './types';
+import { Option, TOptionSelect } from './helpers/types';
 
 interface CustomSelectProps {
-    options: Option[];
-    value: Option;
-    onChange: (option: Option) => void;
+    options: Option[] | TOptionSelect[];
+    value: Option | TOptionSelect;
+    onChange: (option: Option | TOptionSelect) => void;
 }
 
-export const CustomSelect: React.FC<CustomSelectProps> = ({
+export const CustomSelect = ({
     options,
     value,
     onChange,
-}) => {
+}: CustomSelectProps) => {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedOption, setSelectedOption] = useState(value);
     const containerRef = useRef<HTMLDivElement>(null);

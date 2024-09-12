@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { useForm } from 'react-hook-form';
+import { useEffect } from 'react';
 
 import { ClearBtn } from '../../ClearBtn';
 import { ReturnBtn } from '../../ReturnBtn';
@@ -8,7 +9,6 @@ import { SubmitBtn } from '../../SubmitBtn';
 import { TAdvertisment } from '../../../../types';
 
 import styles from './formEdit.module.scss';
-import { useEffect } from 'react';
 
 type FormField = 'name' | 'description' | 'price' | 'imageUrl';
 
@@ -19,6 +19,8 @@ interface IPropsFormEdit {
     ) => void;
     closeForm: () => void;
 }
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 export function FormEdit({
     advertisement,
@@ -37,7 +39,7 @@ export function FormEdit({
         if (id) {
             try {
                 const response = await fetch(
-                    `http://localhost:3000/advertisements/${id}`,
+                    `${API_URL}/advertisements/${id}`,
                     {
                         method: 'PATCH',
                         headers: {

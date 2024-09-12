@@ -11,8 +11,6 @@ import styles from './search.module.scss';
 interface IPropsSearch {
     isDataFromSearch: boolean;
     setIsDataFromSearch: (value: boolean) => void;
-    searchValue: string;
-    setSearchValue: (value: string) => void;
     setAdvertisementItems: React.Dispatch<
         React.SetStateAction<AdvertismentState>
     >;
@@ -25,8 +23,6 @@ interface IPropsSearch {
 export function Search({
     isDataFromSearch,
     setIsDataFromSearch,
-    searchValue,
-    setSearchValue,
     setAdvertisementItems,
     currentPage,
     setCurrentPage,
@@ -35,6 +31,7 @@ export function Search({
 }: IPropsSearch) {
     const [statusLoading, setStatusLoading] = useState(false);
     const [errorText, setErrorText] = useState('');
+    const [searchValue, setSearchValue] = useState('');
 
     const onSearch = () => {
         if (searchValue.length < MIN_LENGTH_TO_SEND_REQUEST) {
