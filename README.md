@@ -9,7 +9,7 @@ npm run server
 
 ## Запуск проекта
 
-npm run start
+npm run dev
 
 ## Сложности
 
