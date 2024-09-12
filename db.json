@@ -72,12 +72,13 @@
     },
     {
       "id": "8",
-      "name": "Новый айфон",
+      "name": "Перекус таксиста",
       "price": 100000,
       "createdAt": "2024-08-12T12:16:55.351Z",
       "views": 200000,
       "likes": 302,
-      "imageUrl": "https://media.istockphoto.com/id/826809148/fr/photo/une-tasse-de-caf%C3%A9-sur-la-table-matin.jpg?s=1024x1024&w=is&k=20&c=W7K4JqhFK36y0Y1v3eKJnuLRfQ3bd1XDFDarhUjsBrw="
+      "imageUrl": "https://media.istockphoto.com/id/826809148/fr/photo/une-tasse-de-caf%C3%A9-sur-la-table-matin.jpg?s=1024x1024&w=is&k=20&c=W7K4JqhFK36y0Y1v3eKJnuLRfQ3bd1XDFDarhUjsBrw=",
+      "description": ""
     },
     {
       "id": "9",
@@ -535,6 +536,13 @@
       "imageUrl": "ff",
       "price": "12",
       "id": "RGvAF7F"
+    },
+    {
+      "name": "что-то необычное",
+      "description": "хмм",
+      "imageUrl": "https://media.istockphoto.com/id/503920686/photo/purple-crystal-on-a-white-background-isolated.jpg?s=612x612&w=0&k=20&c=Xd7KMdB6SIgQUIRzLq5XARDi-EF9uati6g7QvL8h2N8=",
+      "price": "00001",
+      "id": "NXAuqvC"
     }
   ],
   "orders": [

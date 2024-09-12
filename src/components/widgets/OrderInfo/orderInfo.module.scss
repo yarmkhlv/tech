@@ -1,6 +1,6 @@
 @import '../../../styles/mixins';
 
-.adInfoBlock {
+.orderInfoBlock {
     width: fit-content;
 
     margin: 10px auto;
@@ -16,14 +16,17 @@
 
     @include desktop {
         margin-top: 50px;
-
-        flex-direction: row;
-        column-gap: 10px;
     }
 
     @include large-desktop {
         column-gap: 50px;
     }
+}
+
+.advertisementItem {
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 8px;
 }
 
 .imageContainer {
@@ -55,13 +58,10 @@
 
 .detailsContainer {
     padding: 10px;
-
-    @include large-desktop {
-        max-width: 50%;
-    }
 }
 
-.productName {
+.productName,
+.orderInfoBlockTitle {
     font-size: 20px;
     line-height: 28px;
     font-weight: 700;
@@ -81,46 +81,22 @@
     }
 }
 
-.productDescription {
-    margin-top: 8px;
-
+.productName {
     font-size: 16px;
-}
-
-.productPrice {
-    margin-top: 16px;
-
-    font-size: 18px;
     line-height: 22px;
     font-weight: 600;
-    color: #007bff;
-}
 
-.interactions {
-    margin-top: 16px;
+    @include tablet {
+        font-size: 18px;
+        line-height: 24px;
+    }
 
-    display: flex;
-}
-
-.likes,
-.views {
-    font-size: 14px;
-    color: #555;
-}
-
-.editButton {
-    margin-top: 16px;
-
-    padding: 8px 16px;
-    font-size: 16px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    align-self: flex-start;
-}
-
-.editButton:hover {
-    background-color: #0056b3;
+    @include desktop {
+        font-size: 20px;
+        line-height: 28px;
+    }
+    @include tablet {
+        font-size: 22px;
+        line-height: 30px;
+    }
 }

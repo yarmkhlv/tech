@@ -1,3 +1,5 @@
+import styles from './returnBtn.module.scss';
+
 interface IPropsCloseEditBtn {
     onClick: () => void;
     className?: string;
@@ -5,7 +7,11 @@ interface IPropsCloseEditBtn {
 
 export function ReturnBtn({ onClick, className }: IPropsCloseEditBtn) {
     return (
-        <button type="button" className={className} onClick={onClick}>
+        <button
+            type="button"
+            className={className ?? styles.returnBtn}
+            onClick={onClick}
+        >
             <svg
                 role="img"
                 aria-hidden="true"
