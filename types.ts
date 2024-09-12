@@ -17,7 +17,7 @@ export type TAdvertisment = {
     imageUrl?: string;
 };
 
-const OrderStatus = {
+export const OrderStatus = {
     Created: 0,
     Paid: 1,
     Transport: 2,
@@ -27,9 +27,19 @@ const OrderStatus = {
     Refund: 6,
 } as const;
 
-type OrderItem = TAdvertisment & { count: number };
+export type TOrderItem = TAdvertisment & { count: number };
 
-type Order = {
+export const statusLabels: { [key: number]: string } = {
+    [OrderStatus.Created]: 'Создан',
+    [OrderStatus.Paid]: 'Оплачен',
+    [OrderStatus.Transport]: 'В пути',
+    [OrderStatus.DeliveredToThePoint]: 'Доставлен в пункт',
+    [OrderStatus.Received]: 'Получен',
+    [OrderStatus.Archived]: 'Архивирован',
+    [OrderStatus.Refund]: 'Возврат',
+};
+
+export type TOrder = {
     /* Уникальный идентификатор. */
     id: string;
     /* Статус. */
@@ -39,14 +49,14 @@ type Order = {
     /* Дата и время завершения. */
     finishedAt?: string;
     /* Товары в заказе. */
-    items: Array<OrderItem>;
+    items: Array<TOrderItem>;
     /* Способ доставки(Почта, СДЭК...) */
     deliveryWay: string;
     /* Сумма заказа */
     total: number;
 };
 
-type Image = {
+type TImage = {
     /* Уникальный идентификатор. */
     id: number;
     /* Ссылка. */
