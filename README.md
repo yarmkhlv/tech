@@ -2,49 +2,21 @@
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Запуск сервера
 
-## Expanding the ESLint configuration
+npm run server
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Запуск проекта
 
-- Configure the top-level `parserOptions` property like this:
+npm run start
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## Сложности
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+Проект показался довольно объёмным, тяжело было совмещать с работой, занимался им в свободное время, делал ставку больше на количество выполняемого, нежели на качество, от себя скажу, что проект нуждается в рефакторинге, более детальной проработке всех компонентов, начиная от стилизации, заканчивая логикой и структурой, но, к сожалению, на это не остается времени.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+Сложность с API, скудная документация, например, на поиск по ключу: последнии версии не поддерживают запрос с использованием квери параметра {key}_like, пришлось ресерчить,чтобы обнаружить, что это поддерживается на версии 0.17.4, после изменения версии либы, пришлось изменять запрос на пагинацию, т.к. в актуальных версиях используется per_page, для 0.17.4 используется limit.
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+Также возник вопрос о надобности, той же, отдельной страницы объявления, для которой используется простой роутинг с айдишником, приходится тратить время на реализацию самой страницы, хотя, информация по объявлению ни чем не отличается от той, что отображается в списке заказов. Разве что, добавляется редактирование объявления.
+ 
+
