@@ -1,32 +1,28 @@
 import { useState, useEffect } from 'react';
 
-import { AdvertismentState } from '../../../pages/AdsListPage';
-
 import { searchAdvertisements } from '../../../helpers/api/searchAdvertisements';
 import { ClearBtn } from '../Buttons/ClearBtn/ClearBtn';
 
 import { MIN_LENGTH_TO_SEND_REQUEST } from '../../../helpers/variables/variables';
 import styles from './search.module.scss';
+import { TAdvertisment } from '../../../../types';
 
 interface IPropsSearch {
-    isDataFromSearch: boolean;
+    handleChangeState: (response: {
+        data: TAdvertisment[];
+        pages: number;
+    }) => void;
     setIsDataFromSearch: (value: boolean) => void;
-    setAdvertisementItems: React.Dispatch<
-        React.SetStateAction<AdvertismentState>
-    >;
+    isDataFromSearch: boolean;
     currentPage: number;
-    setCurrentPage: (page: number) => void;
-    setCountPagesForPagination: (pages: number) => void;
     adCountPerPage: number;
 }
 
 export function Search({
-    isDataFromSearch,
+    handleChangeState,
     setIsDataFromSearch,
-    setAdvertisementItems,
+    isDataFromSearch,
     currentPage,
-    setCurrentPage,
-    setCountPagesForPagination,
     adCountPerPage,
 }: IPropsSearch) {
     const [statusLoading, setStatusLoading] = useState(false);
@@ -48,11 +44,7 @@ export function Search({
                 adCountPerPage,
             );
             if (response.data !== null && response.data.length > 0) {
-                setCountPagesForPagination(response.pages);
-                if (currentPage > response.pages) {
-                    setCurrentPage(response.pages - 1);
-                }
-                setAdvertisementItems(response.data);
+                handleChangeState(response);
                 setIsDataFromSearch(true);
             } else {
                 setErrorText('По вашему запросу данных не найдено');

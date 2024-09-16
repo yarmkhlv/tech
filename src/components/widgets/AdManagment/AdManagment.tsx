@@ -3,46 +3,42 @@ import { Paginate } from '../../shared/Paginate/Paginate';
 import { Search } from '../../shared/Search';
 import { CustomSelect } from '../../shared/Select/CustomSelect';
 import { OPTIONS_FOR_SELECT_ELEMENTS_COUNT } from '../../shared/Select/helpers/variables';
-import { AdvertismentState } from '../../../pages/AdsListPage';
-import { Option, TOptionSelect } from '../../shared/Select/helpers/types';
+import { Option } from '../../shared/Select/helpers/types';
+import { TAdvertisment } from '../../../../types';
 
 interface IPropsAdManagment {
-    handlePageChange: (selectedItem: { selected: number }) => void;
+    handleChangePage: (selectedItem: { selected: number }) => void;
     handleChangeSelect: (option: Option) => void;
+    handleChangeState: (response: {
+        data: TAdvertisment[];
+        pages: number;
+    }) => void;
     adCountPerPage: {
         value: number;
         label: string;
     };
     countPagesForPagination: number;
     currentPage: number;
-    setCurrentPage: (page: number) => void;
-    setCountPagesForPagination: (pages: number) => void;
-    onChange: (option: Option | TOptionSelect) => void;
     isDataFromSearch: boolean;
     setIsDataFromSearch: (value: boolean) => void;
-    setAdvertisementItems: React.Dispatch<
-        React.SetStateAction<AdvertismentState>
-    >;
     openModal: () => void;
 }
 
 export function AdManagment({
-    handlePageChange,
+    handleChangePage,
     handleChangeSelect,
+    handleChangeState,
     adCountPerPage,
     countPagesForPagination,
     currentPage,
-    setCurrentPage,
-    setCountPagesForPagination,
     isDataFromSearch,
     setIsDataFromSearch,
-    setAdvertisementItems,
     openModal,
 }: IPropsAdManagment) {
     return (
         <>
             <Paginate
-                onPageChange={handlePageChange}
+                onPageChange={handleChangePage}
                 pageCount={countPagesForPagination}
                 currentPage={currentPage}
             />
@@ -50,15 +46,13 @@ export function AdManagment({
                 <CustomSelect
                     options={OPTIONS_FOR_SELECT_ELEMENTS_COUNT}
                     value={adCountPerPage}
-                    onChange={handleChangeSelect}
+                    handleChangeSelect={handleChangeSelect}
                 />
                 <Search
-                    isDataFromSearch={isDataFromSearch}
+                    handleChangeState={handleChangeState}
                     setIsDataFromSearch={setIsDataFromSearch}
-                    setAdvertisementItems={setAdvertisementItems}
+                    isDataFromSearch={isDataFromSearch}
                     currentPage={currentPage}
-                    setCurrentPage={setCurrentPage}
-                    setCountPagesForPagination={setCountPagesForPagination}
                     adCountPerPage={adCountPerPage.value}
                 />
             </div>

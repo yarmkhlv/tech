@@ -1,6 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useReducer, useState } from 'react';
+
+import {
+    advertisementsReducer,
+    initStateAdvsReducer,
+} from '../reducers/advertisements/advertisements';
 
 import { AdvertisementList } from '../components/widgets/AdvertisementList';
+import { AdManagment } from '../components/widgets/AdManagment/AdManagment';
 import { Loader } from '../components/shared/Loader';
 import { FormCreateAdvertisment } from '../components/widgets/Forms/FormCreateAdvertisment';
 import Modal from '../components/shared/Modal/Modal';
@@ -11,32 +17,42 @@ import useModal from '../hooks/useModal';
 
 import { Option } from '../components/shared/Select/helpers/types';
 import { TAdvertisment } from '../../types';
-import { OPTIONS_FOR_SELECT_ELEMENTS_COUNT } from '../components/shared/Select/helpers/variables';
-
-import { AdManagment } from '../components/widgets/AdManagment/AdManagment';
 
 export type AdvertismentState = TAdvertisment[] | null;
 
 export function AdsListPage() {
     const { isOpen, openModal, closeModal } = useModal();
     const [loading, setLoading] = useState(false);
-    const [advertisementItems, setAdvertisementItems] =
-        useState<AdvertismentState>([]);
 
-    const [countPagesForPagination, setCountPagesForPagination] = useState<
-        null | number
-    >(null);
-    const [adCountPerPage, setAdCountPerPage] = useState(
-        OPTIONS_FOR_SELECT_ELEMENTS_COUNT[0],
+    const [state, dispatch] = useReducer(
+        advertisementsReducer,
+        initStateAdvsReducer,
     );
-    const [currentPage, setCurrentPage] = useState(0);
     const [isDataFromSearch, setIsDataFromSearch] = useState(false);
 
-    const handlePageChange = (event: { selected: number }) => {
-        setCurrentPage(event.selected);
+    const handleChangePage = (event: { selected: number }) => {
+        dispatch({
+            type: 'changedCurrentPage',
+            payload: { currentPage: event.selected },
+        });
     };
     const handleChangeSelect = (option: Option) => {
-        setAdCountPerPage(option);
+        dispatch({
+            type: 'changedSelectedCount',
+            payload: { countPerPage: option },
+        });
+    };
+    const handleChangeState = (response: {
+        data: TAdvertisment[];
+        pages: number;
+    }) => {
+        dispatch({
+            type: 'updStateBasedOnDataRequest',
+            payload: {
+                advertisementItems: response.data,
+                countPagesForPagination: response.pages,
+            },
+        });
     };
 
     useEffect(() => {
@@ -44,41 +60,34 @@ export function AdsListPage() {
         setLoading(true);
         const fetchAdvertisements = async () => {
             const response = await getAdvertisements(
-                currentPage + 1,
-                adCountPerPage.value,
+                state.currentPage + 1,
+                state.countPerPage.value,
             );
             if (response !== null) {
-                setCountPagesForPagination(response.pages);
-                if (currentPage > response.pages) {
-                    setCurrentPage(response.pages - 1);
-                }
-                setAdvertisementItems(response.data);
+                handleChangeState(response);
                 setLoading(false);
             }
         };
         fetchAdvertisements();
-    }, [currentPage, adCountPerPage.value, isDataFromSearch]);
+    }, [state.currentPage, state.countPerPage.value, isDataFromSearch]);
 
-    if (loading || !countPagesForPagination || !advertisementItems)
+    if (loading || !state.countPagesForPagination || !state.advertisementItems)
         return <Loader />;
 
     return (
         <>
             <AdManagment
-                handlePageChange={handlePageChange}
-                countPagesForPagination={countPagesForPagination}
-                currentPage={currentPage}
-                openModal={openModal}
+                handleChangePage={handleChangePage}
                 handleChangeSelect={handleChangeSelect}
-                onChange={handleChangeSelect}
+                handleChangeState={handleChangeState}
+                countPagesForPagination={state.countPagesForPagination}
+                currentPage={state.currentPage}
+                openModal={openModal}
                 isDataFromSearch={isDataFromSearch}
                 setIsDataFromSearch={setIsDataFromSearch}
-                setAdvertisementItems={setAdvertisementItems}
-                setCurrentPage={setCurrentPage}
-                setCountPagesForPagination={setCountPagesForPagination}
-                adCountPerPage={adCountPerPage}
+                adCountPerPage={state.countPerPage}
             />
-            <AdvertisementList itemsDataAdv={advertisementItems} />
+            <AdvertisementList itemsDataAdv={state.advertisementItems} />
             <Modal isOpen={isOpen} onClose={closeModal}>
                 <FormCreateAdvertisment closeForm={closeModal} />
             </Modal>

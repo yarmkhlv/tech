@@ -13,6 +13,7 @@ export function Paginate({
     pageCount,
     currentPage,
 }: IPropsPaginate) {
+    if (!pageCount || pageCount === 1) return null;
     return (
         <ReactPaginate
             className={styles.pagination}

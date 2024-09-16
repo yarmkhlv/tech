@@ -15,14 +15,11 @@ export async function getAdvertisements(page: number = 1, limit: number = 10) {
         }
 
         const data: TAdvertisment[] = await response.json();
-
         const linkHeader = response.headers.get('link');
-
-        const totalPages = getTotalPagesFromLink(linkHeader);
-
+        const totalPages = getTotalPagesFromLink(linkHeader) || 1;
         return {
             data,
-            pages: totalPages || 1,
+            pages: totalPages,
         };
     } catch (error) {
         console.error('Failed to fetch advertisements:', error);

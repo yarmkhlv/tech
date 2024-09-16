@@ -6,13 +6,13 @@ import { Option, TOptionSelect } from './helpers/types';
 interface CustomSelectProps {
     options: Option[] | TOptionSelect[];
     value: Option | TOptionSelect;
-    onChange: (option: Option | TOptionSelect) => void;
+    handleChangeSelect: (option: Option | TOptionSelect) => void;
 }
 
 export const CustomSelect = ({
     options,
     value,
-    onChange,
+    handleChangeSelect,
 }: CustomSelectProps) => {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedOption, setSelectedOption] = useState(value);
@@ -24,7 +24,7 @@ export const CustomSelect = ({
 
     const handleOptionClick = (option: Option) => {
         setSelectedOption(option);
-        onChange(option);
+        handleChangeSelect(option);
         setIsOpen(false);
     };
 
