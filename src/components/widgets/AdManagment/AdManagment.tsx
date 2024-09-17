@@ -4,27 +4,23 @@ import { Search } from '../../shared/Search';
 import { CustomSelect } from '../../shared/Select/CustomSelect';
 import { OPTIONS_FOR_SELECT_ELEMENTS_COUNT } from '../../shared/Select/helpers/variables';
 import { Option } from '../../shared/Select/helpers/types';
-import { TAdvertisment } from '../../../../types';
 
 interface IPropsAdManagment {
+    handleChangeDebouncedValue: (value: string) => void;
     handleChangePage: (selectedItem: { selected: number }) => void;
     handleChangeSelect: (option: Option) => void;
-    handleChangeState: (response: {
-        data: TAdvertisment[];
-        pages: number;
-    }) => void;
-    isDataFromSearch: boolean;
-    setIsDataFromSearch: (value: boolean) => void;
     openModal: () => void;
+    searchValue: string;
+    setSearchValue: (value: string) => void;
 }
 
 export function AdManagment({
+    handleChangeDebouncedValue,
     handleChangePage,
     handleChangeSelect,
-    handleChangeState,
-    isDataFromSearch,
-    setIsDataFromSearch,
     openModal,
+    searchValue,
+    setSearchValue,
 }: IPropsAdManagment) {
     return (
         <>
@@ -35,9 +31,9 @@ export function AdManagment({
                     handleChangeSelect={handleChangeSelect}
                 />
                 <Search
-                    handleChangeState={handleChangeState}
-                    setIsDataFromSearch={setIsDataFromSearch}
-                    isDataFromSearch={isDataFromSearch}
+                    searchValue={searchValue}
+                    setSearchValue={setSearchValue}
+                    handleChangeDebouncedValue={handleChangeDebouncedValue}
                 />
             </div>
             <div className={styles.containerCreateBtn}>

@@ -3,6 +3,7 @@ import { IAction, IInitialState } from './types';
 
 export const initStateAdvsReducer: IInitialState = {
     advertisementItems: [],
+    searchDebouncedValue: '',
     currentPage: 0,
     countPagesForPagination: 0,
     countPerPage: OPTIONS_FOR_SELECT_ELEMENTS_COUNT[0],
@@ -11,6 +12,12 @@ export const initStateAdvsReducer: IInitialState = {
 export function advertisementsReducer(state: IInitialState, action: IAction) {
     const { type, payload } = action;
     switch (type) {
+        case 'changedSearchDebouncedValue': {
+            return {
+                ...state,
+                searchDebouncedValue: payload.searchDebouncedValue,
+            };
+        }
         case 'changedSelectedCount': {
             return { ...state, countPerPage: payload.countPerPage };
         }

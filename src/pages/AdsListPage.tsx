@@ -25,13 +25,19 @@ export const AdsListPageContext = createContext(initStateAdvsReducer);
 export function AdsListPage() {
     const { isOpen, openModal, closeModal } = useModal();
     const [loading, setLoading] = useState(false);
+    const [searchValue, setSearchValue] = useState('');
 
     const [state, dispatch] = useReducer(
         advertisementsReducer,
         initStateAdvsReducer,
     );
-    const [isDataFromSearch, setIsDataFromSearch] = useState(false);
 
+    const handleChangeDebouncedValue = (value: string) => {
+        dispatch({
+            type: 'changedSearchDebouncedValue',
+            payload: { searchDebouncedValue: value },
+        });
+    };
     const handleChangePage = (event: { selected: number }) => {
         dispatch({
             type: 'changedCurrentPage',
@@ -56,14 +62,13 @@ export function AdsListPage() {
             },
         });
     };
-
     useEffect(() => {
-        if (isDataFromSearch) return;
         setLoading(true);
         const fetchAdvertisements = async () => {
             const response = await getAdvertisements(
                 state.currentPage + 1,
                 state.countPerPage.value,
+                state.searchDebouncedValue,
             );
             if (response !== null) {
                 handleChangeState(response);
@@ -71,7 +76,11 @@ export function AdsListPage() {
             }
         };
         fetchAdvertisements();
-    }, [state.currentPage, state.countPerPage.value, isDataFromSearch]);
+    }, [
+        state.currentPage,
+        state.countPerPage.value,
+        state.searchDebouncedValue,
+    ]);
 
     if (loading || !state.countPagesForPagination || !state.advertisementItems)
         return <Loader />;
@@ -79,12 +88,12 @@ export function AdsListPage() {
     return (
         <AdsListPageContext.Provider value={state}>
             <AdManagment
+                handleChangeDebouncedValue={handleChangeDebouncedValue}
                 handleChangePage={handleChangePage}
                 handleChangeSelect={handleChangeSelect}
-                handleChangeState={handleChangeState}
                 openModal={openModal}
-                isDataFromSearch={isDataFromSearch}
-                setIsDataFromSearch={setIsDataFromSearch}
+                searchValue={searchValue}
+                setSearchValue={setSearchValue}
             />
             <AdvertisementList itemsDataAdv={state.advertisementItems} />
             <Modal isOpen={isOpen} onClose={closeModal}>

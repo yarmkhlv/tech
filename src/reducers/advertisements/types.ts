@@ -4,6 +4,7 @@ export type AdvertismentState = TAdvertisment[] | null;
 
 export interface IInitialState {
     advertisementItems: AdvertismentState;
+    searchDebouncedValue: string;
     currentPage: number;
     countPagesForPagination: number;
     countPerPage: {
@@ -28,6 +29,10 @@ export interface IUpdStateBasedOnDataRequestPayload {
     countPagesForPagination: number;
 }
 
+export interface IChangedSearchDebouncedValue {
+    searchDebouncedValue: string;
+}
+
 export type IAction =
     | {
           type: 'changedSelectedCount';
@@ -40,4 +45,8 @@ export type IAction =
     | {
           type: 'updStateBasedOnDataRequest';
           payload: IUpdStateBasedOnDataRequestPayload;
+      }
+    | {
+          type: 'changedSearchDebouncedValue';
+          payload: IChangedSearchDebouncedValue;
       };
