@@ -1,7 +1,9 @@
 export function getTotalPagesFromLink(
     linkHeader: string | null,
 ): number | null {
-    if (!linkHeader) return null;
+    if (!linkHeader) {
+        return null;
+    }
 
     const lastLinkRegex = /_page=(\d+)&_limit=\d+>; rel="last"/;
     const match = linkHeader.match(lastLinkRegex);

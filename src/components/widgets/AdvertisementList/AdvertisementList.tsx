@@ -23,7 +23,7 @@ export function AdvertisementList({ itemsDataAdv }: IPropsAdvertisementList) {
     }, [itemsDataAdv]);
 
     if (itemsDataAdv === null || itemsDataAdv.length < 1) {
-        return null;
+        return <p>Нет данных</p>;
     }
 
     return (
