@@ -1,9 +1,9 @@
-import { useEffect, useReducer, useState } from 'react';
+import { createContext, useEffect, useReducer, useState } from 'react';
 
 import {
     advertisementsReducer,
     initStateAdvsReducer,
-} from '../reducers/advertisements/advertisements';
+} from '../reducers/advertisements/reducer';
 
 import { AdvertisementList } from '../components/widgets/AdvertisementList';
 import { AdManagment } from '../components/widgets/AdManagment/AdManagment';
@@ -19,6 +19,8 @@ import { Option } from '../components/shared/Select/helpers/types';
 import { TAdvertisment } from '../../types';
 
 export type AdvertismentState = TAdvertisment[] | null;
+
+export const AdsListPageContext = createContext(initStateAdvsReducer);
 
 export function AdsListPage() {
     const { isOpen, openModal, closeModal } = useModal();
@@ -75,22 +77,19 @@ export function AdsListPage() {
         return <Loader />;
 
     return (
-        <>
+        <AdsListPageContext.Provider value={state}>
             <AdManagment
                 handleChangePage={handleChangePage}
                 handleChangeSelect={handleChangeSelect}
                 handleChangeState={handleChangeState}
-                countPagesForPagination={state.countPagesForPagination}
-                currentPage={state.currentPage}
                 openModal={openModal}
                 isDataFromSearch={isDataFromSearch}
                 setIsDataFromSearch={setIsDataFromSearch}
-                adCountPerPage={state.countPerPage}
             />
             <AdvertisementList itemsDataAdv={state.advertisementItems} />
             <Modal isOpen={isOpen} onClose={closeModal}>
                 <FormCreateAdvertisment closeForm={closeModal} />
             </Modal>
-        </>
+        </AdsListPageContext.Provider>
     );
 }

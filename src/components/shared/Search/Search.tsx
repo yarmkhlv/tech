@@ -1,11 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 
 import { searchAdvertisements } from '../../../helpers/api/searchAdvertisements';
 import { ClearBtn } from '../Buttons/ClearBtn/ClearBtn';
 
+import { AdsListPageContext } from '../../../pages/AdsListPage';
+
 import { MIN_LENGTH_TO_SEND_REQUEST } from '../../../helpers/variables/variables';
-import styles from './search.module.scss';
+
 import { TAdvertisment } from '../../../../types';
+
+import styles from './search.module.scss';
 
 interface IPropsSearch {
     handleChangeState: (response: {
@@ -14,17 +18,14 @@ interface IPropsSearch {
     }) => void;
     setIsDataFromSearch: (value: boolean) => void;
     isDataFromSearch: boolean;
-    currentPage: number;
-    adCountPerPage: number;
 }
 
 export function Search({
     handleChangeState,
     setIsDataFromSearch,
     isDataFromSearch,
-    currentPage,
-    adCountPerPage,
 }: IPropsSearch) {
+    const { countPerPage, currentPage } = useContext(AdsListPageContext);
     const [statusLoading, setStatusLoading] = useState(false);
     const [errorText, setErrorText] = useState('');
     const [searchValue, setSearchValue] = useState('');
@@ -41,7 +42,7 @@ export function Search({
             const response = await searchAdvertisements(
                 searchValue,
                 isDataFromSearch ? currentPage + 1 : 1,
-                adCountPerPage,
+                countPerPage.value,
             );
             if (response.data !== null && response.data.length > 0) {
                 handleChangeState(response);

@@ -13,12 +13,6 @@ interface IPropsAdManagment {
         data: TAdvertisment[];
         pages: number;
     }) => void;
-    adCountPerPage: {
-        value: number;
-        label: string;
-    };
-    countPagesForPagination: number;
-    currentPage: number;
     isDataFromSearch: boolean;
     setIsDataFromSearch: (value: boolean) => void;
     openModal: () => void;
@@ -28,32 +22,22 @@ export function AdManagment({
     handleChangePage,
     handleChangeSelect,
     handleChangeState,
-    adCountPerPage,
-    countPagesForPagination,
-    currentPage,
     isDataFromSearch,
     setIsDataFromSearch,
     openModal,
 }: IPropsAdManagment) {
     return (
         <>
-            <Paginate
-                onPageChange={handleChangePage}
-                pageCount={countPagesForPagination}
-                currentPage={currentPage}
-            />
+            <Paginate onPageChange={handleChangePage} />
             <div className={styles.wrapperForSelectAndSearch}>
                 <CustomSelect
                     options={OPTIONS_FOR_SELECT_ELEMENTS_COUNT}
-                    value={adCountPerPage}
                     handleChangeSelect={handleChangeSelect}
                 />
                 <Search
                     handleChangeState={handleChangeState}
                     setIsDataFromSearch={setIsDataFromSearch}
                     isDataFromSearch={isDataFromSearch}
-                    currentPage={currentPage}
-                    adCountPerPage={adCountPerPage.value}
                 />
             </div>
             <div className={styles.containerCreateBtn}>
