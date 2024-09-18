@@ -1,19 +1,18 @@
-import { useContext } from 'react';
-
 import ReactPaginate from 'react-paginate';
-
-import { AdsListPageContext } from '../../../context/AdsListPageContext';
 
 import styles from './paginate.module.scss';
 
 interface IPropsPaginate {
     onPageChange: (selectedItem: { selected: number }) => void;
+    pageCount: number;
+    currentPage: number;
 }
 
-export function Paginate({ onPageChange }: IPropsPaginate) {
-    const { currentPage, countPagesForPagination } =
-        useContext(AdsListPageContext);
-    if (!countPagesForPagination || countPagesForPagination === 1) return null;
+export function PaginateOld({
+    onPageChange,
+    pageCount,
+    currentPage,
+}: IPropsPaginate) {
     return (
         <ReactPaginate
             className={styles.pagination}
@@ -26,7 +25,7 @@ export function Paginate({ onPageChange }: IPropsPaginate) {
             nextLabel=">"
             onPageChange={onPageChange}
             pageRangeDisplayed={5}
-            pageCount={countPagesForPagination}
+            pageCount={pageCount}
             previousLabel="<"
             renderOnZeroPageCount={null}
             forcePage={currentPage}

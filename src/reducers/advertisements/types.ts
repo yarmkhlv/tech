@@ -4,6 +4,7 @@ export type AdvertismentState = TAdvertisment[] | null;
 
 export interface IInitialState {
     advertisementItems: AdvertismentState;
+    searchValue: string;
     searchDebouncedValue: string;
     currentPage: number;
     countPagesForPagination: number;

@@ -3,6 +3,7 @@ import { IAction, IInitialState } from './types';
 
 export const initStateAdvsReducer: IInitialState = {
     advertisementItems: [],
+    searchValue: '',
     searchDebouncedValue: '',
     currentPage: 0,
     countPagesForPagination: 0,

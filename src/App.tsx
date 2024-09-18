@@ -7,6 +7,7 @@ import { Navigation } from './components/widgets/Navigation';
 import styles from './app.module.scss';
 import { AdDetailsPage } from './pages/AdDetailsPage';
 import { Layout } from './components/Layout';
+import { AdsListPageProvider } from './components/Providers/AdsListPageProvider';
 
 export function App() {
     return (
@@ -16,7 +17,14 @@ export function App() {
                     <Navigation />
                     <main className={styles.mainContent}>
                         <Routes>
-                            <Route path="/" element={<AdsListPage />} />
+                            <Route
+                                path="/"
+                                element={
+                                    <AdsListPageProvider>
+                                        <AdsListPage />
+                                    </AdsListPageProvider>
+                                }
+                            />
                             <Route
                                 path="/advertisement/:id"
                                 element={<AdDetailsPage />}

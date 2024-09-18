@@ -1,21 +1,21 @@
 import { useState, useRef, useEffect } from 'react';
+import styles from './customSelect.module.scss';
 
 import { Option, TOptionSelect } from './helpers/types';
 
-import styles from './customSelect.module.scss';
-
 interface CustomSelectProps {
-    countPerPage: Option;
     options: Option[] | TOptionSelect[];
-    handleChangeSelect: (option: Option | TOptionSelect) => void;
+    value: Option | TOptionSelect;
+    onChange: (option: Option | TOptionSelect) => void;
 }
 
-export const CustomSelect = ({
-    countPerPage,
+export const CustomSelectOld = ({
     options,
-    handleChangeSelect,
+    value,
+    onChange,
 }: CustomSelectProps) => {
     const [isOpen, setIsOpen] = useState(false);
+    const [selectedOption, setSelectedOption] = useState(value);
     const containerRef = useRef<HTMLDivElement>(null);
 
     const toggleDropdown = () => {
@@ -23,7 +23,8 @@ export const CustomSelect = ({
     };
 
     const handleOptionClick = (option: Option) => {
-        handleChangeSelect(option);
+        setSelectedOption(option);
+        onChange(option);
         setIsOpen(false);
     };
 
@@ -46,7 +47,9 @@ export const CustomSelect = ({
     return (
         <div className={styles.customSelect} ref={containerRef}>
             <div className={styles.selectWrapper} onClick={toggleDropdown}>
-                <span className={styles.selectValue}>{countPerPage.label}</span>
+                <span className={styles.selectValue}>
+                    {selectedOption.label}
+                </span>
                 <span className={styles.selectArrow}>▼</span>
             </div>
             {isOpen && (

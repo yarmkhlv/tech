@@ -1,32 +1,37 @@
-import styles from './adManagment.module.scss';
+import { useContext } from 'react';
+
 import { Paginate } from '../../shared/Paginate/Paginate';
 import { Search } from '../../shared/Search';
 import { CustomSelect } from '../../shared/Select/CustomSelect';
 import { OPTIONS_FOR_SELECT_ELEMENTS_COUNT } from '../../shared/Select/helpers/variables';
-import { Option } from '../../shared/Select/helpers/types';
+
+import {
+    AdsListPageContext,
+    AdsListPageHandlersContext,
+} from '../../../context/AdsListPageContext';
+
+import styles from './adManagment.module.scss';
 
 interface IPropsAdManagment {
-    handleChangeDebouncedValue: (value: string) => void;
-    handleChangePage: (selectedItem: { selected: number }) => void;
-    handleChangeSelect: (option: Option) => void;
     openModal: () => void;
-    searchValue: string;
-    setSearchValue: (value: string) => void;
 }
 
-export function AdManagment({
-    handleChangeDebouncedValue,
-    handleChangePage,
-    handleChangeSelect,
-    openModal,
-    searchValue,
-    setSearchValue,
-}: IPropsAdManagment) {
+export function AdManagment({ openModal }: IPropsAdManagment) {
+    const { searchValue, countPerPage } = useContext(AdsListPageContext);
+
+    const {
+        setSearchValue,
+        handleChangePage,
+        handleChangeSelect,
+        handleChangeDebouncedValue,
+    } = useContext(AdsListPageHandlersContext);
+
     return (
         <>
             <Paginate onPageChange={handleChangePage} />
             <div className={styles.wrapperForSelectAndSearch}>
                 <CustomSelect
+                    countPerPage={countPerPage}
                     options={OPTIONS_FOR_SELECT_ELEMENTS_COUNT}
                     handleChangeSelect={handleChangeSelect}
                 />

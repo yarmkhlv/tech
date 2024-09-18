@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
-import { Paginate } from '../components/shared/Paginate/Paginate';
-import { CustomSelect } from '../components/shared/Select/CustomSelect';
+import { PaginateOld } from '../components/shared/Paginate/PaginateOld';
+import { CustomSelectOld } from '../components/shared/Select/CustomSelectOld';
 import { Loader } from '../components/shared/Loader';
 import Modal from '../components/shared/Modal/Modal';
 
@@ -82,17 +82,17 @@ export function OrdersPage() {
 
     return (
         <ContentContainer>
-            <Paginate
+            <PaginateOld
                 onPageChange={handlePageChange}
                 pageCount={countPagesForPagination}
                 currentPage={currentPage}
             />
-            <CustomSelect
+            <CustomSelectOld
                 options={OPTIONS_FOR_SELECT_ELEMENTS_COUNT}
                 value={adCountPerPage}
                 onChange={handleChangeSelectCount}
             />
-            <CustomSelect
+            <CustomSelectOld
                 options={OPTIONS_FOR_SELECT_STATUS}
                 value={selectedStatus}
                 onChange={handleChangeSelectStatus}
